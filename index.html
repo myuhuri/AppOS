@@ -300,12 +300,11 @@
 
     </div>
 
+    <!-- SCRIPT FIREBASE ATUALIZADO (Com Filtro) -->
     <script type="module">
-        // 1. Importando o Firebase diretamente pelo CDN do Google
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // 2. Sua configuração do Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyD0tZ9_1toNXu5aw2FZ3NQOeg2jebFio6g",
             authDomain: "appos-be455.firebaseapp.com",
@@ -316,18 +315,15 @@
             measurementId: "G-04HXDTRQCY"
         };
 
-        // 3. Inicializando o Firebase e o Banco de Dados
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // 4. Variáveis globais agora começam vazias e dinâmicas
         let ordensServico = [];
         const ITEMS_PER_PAGE = 6;
         const TIME_PER_PAGE = 15000; 
         let currentPage = 0;
         let totalPages = 0;
 
-        // 5. Escutar o Firebase em tempo real
         function escutarBancoDeDados() {
             const osRef = collection(db, "ordens_servico");
 
@@ -336,15 +332,19 @@
                 
                 snapshot.forEach((doc) => {
                     const dados = doc.data();
-                    novasOrdens.push({
-                        id: doc.id, 
-                        status: dados.status, 
-                        titleText: dados.titleText, 
-                        class: dados.class, 
-                        maquina: dados.maquina, 
-                        desc: dados.desc, 
-                        resp: dados.resp 
-                    });
+                    
+                    // A MÁGICA AQUI: O APOS ignora o que está aguardando aprovação ou foi rejeitado
+                    if (dados.status !== "aguardando" && dados.status !== "rejeitada") {
+                        novasOrdens.push({
+                            id: doc.id, 
+                            status: dados.status, 
+                            titleText: dados.titleText, 
+                            class: dados.class, 
+                            maquina: dados.maquina, 
+                            desc: dados.desc, 
+                            resp: dados.resp 
+                        });
+                    }
                 });
 
                 ordensServico = novasOrdens;
@@ -355,6 +355,8 @@
                 atualizarEstatisticas();
                 criarBolinhas();
                 renderizarPagina();
+            }, (error) => {
+                console.error("Erro de conexão no APOS: ", error);
             });
         }
 
@@ -374,7 +376,7 @@
             return `
                 <div class="card ${os.class}">
                     <div class="card-left">
-                        <h2>${os.id}</h2>
+                        <h2>${os.id.substring(0, 4)}</h2>
                         <p>${os.titleText}</p>
                     </div>
                     <div class="card-right">
