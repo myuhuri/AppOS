@@ -226,10 +226,9 @@
 
     .assignee svg { width: 1.1vw; height: 1.1vw; }
 
-    /* Cores dos Cards baseados no Status do Bot */
-    .bg-red { background-color: #e63946; color: #ffffff; }     /* Planejamento / Aguardando */
-    .bg-yellow { background-color: #ffb703; color: #ffffff; }  /* Usinando / Em Processo */
-    .bg-green { background-color: #2d6a4f; color: #ffffff; }   /* Concluída / Aguardando Coleta */
+    .bg-red { background-color: #e63946; color: #ffffff; }     
+    .bg-yellow { background-color: #ffb703; color: #ffffff; }  
+    .bg-green { background-color: #2d6a4f; color: #ffffff; }   
 
     .pagination-dots {
         display: flex;
@@ -298,7 +297,6 @@
     <div id="pagination-dots" class="pagination-dots">
     </div>
 
-    <!-- SCRIPT FIREBASE ATUALIZADO PARA O NOVO PROJETO -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -330,18 +328,16 @@
                 
                 snapshot.forEach((doc) => {
                     const dados = doc.data();
+                    const statusAtual = dados.status ? dados.status.trim() : "";
                     
-                    // Ignora notas que ainda estão aguardando aprovação do coordenador ou reprovadas
-                    if (dados.status !== "Aguardando Aprovação" && dados.status !== "Reprovada") {
-                        
-                        // Define a cor e o estilo do card com base no status real do bot
+                    if (statusAtual !== "Aguardando Aprovação" && statusAtual !== "Reprovada") {
                         let cardClass = "bg-red";
                         let statusTipo = "pendente";
 
-                        if (dados.status === "Usinando") {
+                        if (statusAtual === "Usinando") {
                             cardClass = "bg-yellow";
                             statusTipo = "processo";
-                        } else if (dados.status === "Aguardando Coleta" || dados.status === "Finalizado") {
+                        } else if (statusAtual === "Aguardando Coleta" || statusAtual === "Finalizado") {
                             cardClass = "bg-green";
                             statusTipo = "concluida";
                         }
@@ -351,7 +347,7 @@
                             statusTipo: statusTipo,
                             class: cardClass,
                             conjunto: dados.conjunto ? `Conj: ${dados.conjunto}` : "Sem Conjunto",
-                            maquina: `OS ${dados.id_os || doc.id} (${dados.status})`,
+                            maquina: `OS ${dados.id_os || doc.id} (${statusAtual})`,
                             desc: dados.descricao || "Sem descrição informada.",
                             resp: dados.nome_operador ? dados.nome_operador : "Aguardando Operador"
                         });
@@ -466,7 +462,6 @@
             document.getElementById('data-atual').textContent = `${diaStr}, ${dia} De ${mesStr} De ${ano}`;
         }
 
-        // Inicialização
         escutarBancoDeDados(); 
         atualizarRelogio();
 
