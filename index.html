@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AppOS - Setor de Usinagem</title>
+<title>AppOS - Setor de Usinagem & PCM</title>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap');
 
@@ -21,8 +21,8 @@
         overflow: hidden;
         display: flex;
         flex-direction: column;
-        padding: 1.5vw; 
-        gap: 1.5vw;
+        padding: 1vw; 
+        gap: 1vw;
         position: relative;
     }
 
@@ -48,6 +48,224 @@
         to { width: 100%; }
     }
 
+    .hamburger-btn {
+        background: #ffffff;
+        border: 0.15vw solid #e2e8f0;
+        border-radius: 0.8vw;
+        width: 3.5vw;
+        height: 3.5vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 0.4vh;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        z-index: 100;
+        flex-shrink: 0;
+    }
+
+    .hamburger-btn:hover {
+        border-color: #78a795;
+    }
+
+    .hamburger-btn span {
+        width: 1.8vw;
+        height: 0.3vh;
+        background-color: #78a795;
+        border-radius: 2px;
+        transition: all 0.3s ease;
+    }
+
+    .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(4px);
+        z-index: 998;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .sidebar-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -300px;
+        width: 280px;
+        height: 100vh;
+        background: #ffffff;
+        box-shadow: 8px 0 24px rgba(0, 0, 0, 0.1);
+        z-index: 999;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        gap: 20px;
+        transition: left 0.3s ease;
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+
+    .sidebar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid #f1f5f9;
+        padding-bottom: 15px;
+    }
+
+    .sidebar-header h2 {
+        font-size: 1.2rem;
+        color: #78a795;
+        font-weight: 900;
+    }
+
+    .close-sidebar {
+        background: none;
+        border: none;
+        font-size: 1.8rem;
+        color: #94a3b8;
+        cursor: pointer;
+        font-weight: 900;
+    }
+
+    .sidebar-menu {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .menu-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px;
+        border-radius: 12px;
+        background: transparent;
+        border: none;
+        font-size: 1rem;
+        font-weight: 700;
+        color: #64748b;
+        cursor: pointer;
+        text-align: left;
+        transition: all 0.2s ease;
+    }
+
+    .menu-item:hover, .menu-item.active {
+        background: #f0fdf4;
+        color: #78a795;
+    }
+
+    .menu-item svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .view-container {
+        display: none;
+        flex: 1;
+        flex-direction: column;
+        gap: 1.5vw;
+        width: 100%;
+        height: 100%;
+    }
+
+    .view-container.active {
+        display: flex;
+    }
+
+    .header-pcm {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: transparent;
+        min-height: 12vh;
+        margin-top: 1vh;
+        padding: 0 1vw;
+        width: 100%;
+        gap: 1.5vw;
+    }
+
+    .title-area-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 1vw;
+        flex-shrink: 0;
+    }
+
+    .title-area-wrapper h1 {
+        font-size: 1.6vw;
+        font-weight: 900;
+        color: #78a795;
+        text-transform: uppercase;
+        letter-spacing: -0.05vw;
+        line-height: 1;
+        white-space: nowrap;
+    }
+
+    .stats-container-pcm {
+        display: flex;
+        flex: 1;
+        gap: 0.8vw;
+        justify-content: space-between;
+    }
+
+    .stat-box-pcm {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 1vw;
+        padding: 1vh 1vw;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        flex: 1;
+        min-width: 0;
+    }
+
+    .stat-box-pcm span {
+        font-size: 0.7vw;
+        font-weight: 800;
+        color: #64748b;
+        text-transform: uppercase;
+        margin-bottom: 0.2vh;
+        line-height: 1.1;
+    }
+
+    .stat-box-pcm strong {
+        font-size: 2.2vw;
+        font-weight: 900;
+        color: #88a595;
+        line-height: 1;
+        transition: color 0.3s ease;
+    }
+
+    .datetime-area-pcm {
+        text-align: right;
+        min-width: 10%;
+    }
+
+    .datetime-area-pcm h2 {
+        font-size: 2.2vw;
+        font-weight: 900;
+        color: #78a795;
+        font-variant-numeric: tabular-nums;
+        line-height: 1;
+        white-space: nowrap;
+    }
+
     .header {
         display: flex;
         justify-content: space-between;
@@ -56,86 +274,61 @@
         height: 14vh;
         margin-top: 1vh;
         padding: 0 1vw;
-    }
-
-    .title-area h1 {
-        font-size: 2.6vw;
-        font-weight: 900;
-        color: #78a795;
-        letter-spacing: -0.05vw;
-        line-height: 1.1;
-    }
-
-    .title-area p {
-        font-size: 1.1vw;
-        font-weight: 800;
-        color: #94a3b8;
-        text-transform: uppercase;
-        letter-spacing: 0.1vw;
-        margin-top: 0.5vh;
-    }
-
-    .stats-container {
-        display: flex;
         gap: 1vw;
-        height: 100%;
-        align-items: center;
     }
-
-    .stat-box {
+    .title-area {
         display: flex;
         flex-direction: column;
-        align-items: center;
         justify-content: center;
-        text-align: center;
-        padding: 1.2vh 1.5vw; 
-        border-radius: 1.2vw; 
-        border-width: 0.25vw; 
-        border-style: solid;
-        min-width: 11.5vw;
-        min-height: 11.5vh; 
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); 
-        background-clip: padding-box;
     }
-
+    .title-area h1 { 
+        font-size: 1.8vw; 
+        font-weight: 900; 
+        color: #78a795; 
+        letter-spacing: -0.05vw; 
+        line-height: 1.1; 
+        white-space: nowrap; 
+    }
+    .title-area p { 
+        font-size: 0.95vw; 
+        font-weight: 800; 
+        color: #94a3b8; 
+        text-transform: uppercase; 
+        letter-spacing: 0.1vw; 
+        margin-top: 0.4vh; 
+        white-space: nowrap; 
+    }
+    .stats-container { 
+        display: flex; 
+        gap: 0.8vw; 
+        height: 100%; 
+        align-items: center; 
+        flex-shrink: 0; 
+    }
+    .stat-box { 
+        display: flex; 
+        flex-direction: column; 
+        align-items: center; 
+        justify-content: center; 
+        text-align: center; 
+        padding: 1vh 1.2vw; 
+        border-radius: 1vw; 
+        border-width: 0.2vw; 
+        border-style: solid; 
+        min-width: 9vw; 
+        min-height: 10vh; 
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); 
+        background-clip: padding-box; 
+    }
     .stat-box.total { background-color: #ffffff; border-color: #f1f5f9; color: #1e293b; }
     .stat-box.pendente { background-color: #fff1f2; border-color: #ffe4e6; color: #e11d48; }
     .stat-box.processo { background-color: #fefce8; border-color: #fef9c3; color: #d97706; }
     .stat-box.concluida { background-color: #f0fdf4; border-color: #dcfce7; color: #16a34a; }
-
-    .stat-box strong {
-        font-size: 2.9vw; 
-        font-weight: 900;
-        line-height: 1;
-        margin-bottom: 0.8vh; 
-    }
-
-    .stat-box span {
-        font-size: 0.85vw;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 0.05vw;
-    }
-
-    .datetime-area {
-        text-align: right;
-    }
-
-    .datetime-area p {
-        font-size: 1.1vw;
-        color: #64748b;
-        font-weight: 700;
-        margin-bottom: 0.5vh;
-    }
-
-    .datetime-area h2 {
-        font-size: 3.6vw;
-        font-weight: 900;
-        color: #78a795;
-        letter-spacing: -0.1vw;
-        font-variant-numeric: tabular-nums;
-        line-height: 1;
-    }
+    .stat-box strong { font-size: 2.4vw; font-weight: 900; line-height: 1; margin-bottom: 0.5vh; }
+    .stat-box span { font-size: 0.75vw; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05vw; white-space: nowrap; }
+    .datetime-area { text-align: right; flex-shrink: 0; }
+    .datetime-area p { font-size: 0.95vw; color: #64748b; font-weight: 700; margin-bottom: 0.4vh; white-space: nowrap; }
+    .datetime-area h2 { font-size: 3vw; font-weight: 900; color: #78a795; letter-spacing: -0.05vw; font-variant-numeric: tabular-nums; line-height: 1; white-space: nowrap; }
 
     .grid {
         display: grid;
@@ -148,84 +341,16 @@
         padding: 0 1vw 1vw 1vw;
     }
 
-    .grid.fade-out {
-        opacity: 0;
-    }
-
-    .card {
-        border-radius: 2vw; 
-        overflow: hidden; 
-        display: flex;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-    }
-
-    .card-left {
-        width: 32%; 
-        padding: 1.5vw 2vw;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        border-right: 2px solid rgba(255, 255, 255, 0.25); 
-    }
-
-    .card-right {
-        width: 68%;
-        padding: 1.5vw 2.5vw;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;
-    }
-
-    .card-left h2 {
-        font-size: 3.2vw;
-        font-weight: 900;
-        letter-spacing: -0.1vw;
-        line-height: 1;
-        margin-bottom: 0.5vh;
-    }
-
-    .card-left p {
-        font-size: 0.9vw;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 0.05vw;
-        opacity: 0.95;
-        line-height: 1.2;
-    }
-
-    .card-right h3 {
-        font-size: 1.8vw;
-        font-weight: 800;
-        line-height: 1.1;
-        margin-bottom: 0.5vh;
-    }
-
-    .card-right p.desc {
-        font-size: 1.2vw;
-        font-weight: 600;
-        opacity: 0.9;
-        margin-bottom: 1.2vh;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
-
-    .assignee {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5vw;
-        background: rgba(255, 255, 255, 0.2);
-        padding: 0.5vh 1vw;
-        border-radius: 3vw; 
-        font-size: 0.9vw;
-        font-weight: 700;
-        width: fit-content;
-    }
-
-    .assignee svg { width: 1.1vw; height: 1.1vw; }
-
+    .grid.fade-out { opacity: 0; }
+    .card { border-radius: 1.5vw; overflow: hidden; display: flex; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06); }
+    .card-left { width: 32%; padding: 1.2vw 1.5vw; display: flex; flex-direction: column; justify-content: center; border-right: 2px solid rgba(255, 255, 255, 0.25); }
+    .card-right { width: 68%; padding: 1.2vw 2vw; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
+    .card-left h2 { font-size: 2.5vw; font-weight: 900; letter-spacing: -0.1vw; line-height: 1; margin-bottom: 0.5vh; }
+    .card-left p { font-size: 0.8vw; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05vw; opacity: 0.95; line-height: 1.2; }
+    .card-right h3 { font-size: 1.4vw; font-weight: 800; line-height: 1.1; margin-bottom: 0.5vh; }
+    .card-right p.desc { font-size: 1vw; font-weight: 600; opacity: 0.9; margin-bottom: 1vh; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .assignee { display: inline-flex; align-items: center; gap: 0.5vw; background: rgba(255, 255, 255, 0.2); padding: 0.4vh 0.8vw; border-radius: 3vw; font-size: 0.8vw; font-weight: 700; width: fit-content; }
+    .assignee svg { width: 1vw; height: 1vw; }
     .bg-red { background-color: #e63946; color: #ffffff; }     
     .bg-yellow { background-color: #ffb703; color: #ffffff; }  
     .bg-green { background-color: #2d6a4f; color: #ffffff; }   
@@ -238,19 +363,199 @@
         height: 2vh;
         margin-bottom: 0.5vh;
     }
+    .dot { width: 0.8vw; height: 0.8vw; border-radius: 50%; background-color: #cbd5e1; transition: all 0.3s ease; }
+    .dot.active { background-color: #78a795; width: 2vw; border-radius: 1vw; }
 
-    .dot {
-        width: 1vw;
-        height: 1vw;
-        border-radius: 50%;
-        background-color: #cbd5e1;
-        transition: all 0.3s ease;
+    .pcm-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr; 
+        grid-template-rows: 1.3fr 1fr;      
+        gap: 1vw;
+        flex: 1;
+        padding: 0 1vw 1vw 1vw;
+        overflow: hidden;
     }
 
-    .dot.active {
-        background-color: #78a795; 
-        width: 2.5vw;
-        border-radius: 1vw; 
+    .pcm-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 1vw;
+        padding: 1.2vw;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        color: #1e293b;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .span-2-col {
+        grid-column: span 2;
+    }
+
+    .pcm-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5vh;
+        flex-shrink: 0;
+    }
+
+    .pcm-card-header h3 {
+        font-size: 1vw;
+        font-weight: 800;
+        color: #475569;
+    }
+
+    .pcm-badge-group {
+        display: flex;
+        gap: 0.3vw;
+    }
+
+    .pcm-badge {
+        background: #f1f5f9;
+        padding: 0.3vh 0.8vw;
+        border-radius: 0.3vw;
+        font-size: 0.7vw;
+        font-weight: 700;
+        color: #64748b;
+        border: 1px solid #e2e8f0;
+    }
+    .pcm-badge.active-badge-green { background: #88a5a4; color: #ffffff; border-color: #88a5a4; }
+    .pcm-badge.active-badge-purple { background: #9588a5; color: #ffffff; border-color: #9588a5; }
+    .pcm-badge.active-badge-blue { background: #758d9d; color: #ffffff; border-color: #758d9d; }
+    .pcm-badge.active-badge-gray { background: #e2e8f0; color: #1e293b; border-color: #cbd5e1; }
+
+    .line-chart-sim {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        flex: 1;
+        padding-top: 1vh;
+        border-bottom: 2px solid #e2e8f0;
+        position: relative;
+    }
+
+    .chart-month-col {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5vh;
+        flex: 1;
+        height: 100%;
+        justify-content: flex-end;
+        padding-bottom: 0.5vh;
+    }
+
+    .chart-point {
+        width: 0.6vw;
+        height: 0.6vw;
+        background: #10b981;
+        border-radius: 50%;
+        box-shadow: 0 0 5px rgba(16, 185, 129, 0.5);
+    }
+
+    .chart-label {
+        font-size: 0.7vw;
+        color: #94a3b8;
+        font-weight: 700;
+        margin-top: 0.2vh;
+    }
+
+    .bars-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1vh;
+        flex: 1;
+        justify-content: flex-start;
+        overflow-y: auto;
+        padding-right: 0.5vw;
+    }
+
+    .bar-row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.8vw;
+        width: 100%;
+    }
+
+    .bar-info-text {
+        font-size: 0.75vw;
+        font-weight: 700;
+        color: #334155;
+        width: 6vw; 
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .bar-value {
+        font-size: 0.75vw;
+        font-weight: 800;
+        color: #334155;
+        margin-left: auto;
+        text-align: right;
+        min-width: 2vw;
+        transition: color 0.3s ease;
+    }
+
+    .bar-track {
+        flex: 1;
+        height: 1vh;
+        background: #f1f5f9;
+        border-radius: 2px;
+        overflow: hidden;
+    }
+
+    .bar-fill {
+        height: 100%;
+        border-radius: 2px;
+        transition: width 0.5s ease, background-color 0.3s ease;
+    }
+
+    .bar-fill.green { background: #88a5a4; }
+    .bar-fill.purple { background: #a488a5; }
+    .bar-fill.blue { background: #758d9d; }
+
+    .donut-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1.5vw;
+        flex: 1;
+    }
+
+    .donut-ring {
+        width: 9vw;
+        height: 9vw;
+        min-width: 90px;
+        min-height: 90px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .donut-inner {
+        width: 6.5vw;
+        height: 6.5vw;
+        min-width: 65px;
+        min-height: 65px;
+        background: #ffffff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .legend-box {
+        display: flex;
+        flex-direction: column;
+        gap: 1vh;
+        font-size: 0.8vw;
+        font-weight: 700;
+        color: #334155;
     }
 </style>
 </head>
@@ -260,41 +565,177 @@
         <div id="progress-bar" class="progress-bar"></div>
     </div>
 
-    <header class="header">
-        <div class="title-area">
-            <h1>Painel de Intervenção</h1>
-            <p>Setor de Usinagem</p>
+    <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>Navegação</h2>
+            <button class="close-sidebar" onclick="toggleSidebar()">&times;</button>
         </div>
-        
-        <div class="stats-container">
-            <div class="stat-box total">
-                <strong id="count-total">0</strong>
-                <span>Total OS</span>
-            </div>
-            <div class="stat-box pendente">
-                <strong id="count-pendente">0</strong>
-                <span>Pendentes</span>
-            </div>
-            <div class="stat-box processo">
-                <strong id="count-processo">0</strong>
-                <span>Em Processo</span>
-            </div>
-            <div class="stat-box concluida">
-                <strong id="count-concluida">0</strong>
-                <span>Concluídas</span>
-            </div>
+        <div class="sidebar-menu">
+            <button class="menu-item active" id="menu-btn-usinagem" onclick="switchView('usinagem')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                Painel Usinagem (OS)
+            </button>
+            <button class="menu-item" id="menu-btn-pcm" onclick="switchView('pcm')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>
+                DASHBOARD MANUTENÇÃO
+            </button>
         </div>
+    </div>
 
-        <div class="datetime-area">
-            <p id="data-atual">Carregando...</p>
-            <h2 id="relogio">--:--:--</h2>
+    <div id="view-usinagem" class="view-container active">
+        <header class="header">
+            <div class="title-area-wrapper" style="gap: 1.2vw;">
+                <button class="hamburger-btn" onclick="toggleSidebar()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <div class="title-area">
+                    <h1>Painel de Intervenção</h1>
+                    <p>Setor de Usinagem</p>
+                </div>
+            </div>
+            
+            <div class="stats-container">
+                <div class="stat-box total">
+                    <strong id="count-total">0</strong>
+                    <span>Total OS</span>
+                </div>
+                <div class="stat-box pendente">
+                    <strong id="count-pendente">0</strong>
+                    <span>Pendentes</span>
+                </div>
+                <div class="stat-box processo">
+                    <strong id="count-processo">0</strong>
+                    <span>Em Processo</span>
+                </div>
+                <div class="stat-box concluida">
+                    <strong id="count-concluida">0</strong>
+                    <span>Concluídas</span>
+                </div>
+            </div>
+
+            <div class="datetime-area">
+                <p id="data-atual">Carregando...</p>
+                <h2 id="relogio">--:--:--</h2>
+            </div>
+        </header>
+
+        <main id="card-grid" class="grid">
+        </main>
+
+        <div id="pagination-dots" class="pagination-dots">
         </div>
-    </header>
+    </div>
 
-    <main id="card-grid" class="grid">
-    </main>
+    <div id="view-pcm" class="view-container">
+        <header class="header-pcm">
+            <div class="title-area-wrapper">
+                <button class="hamburger-btn" onclick="toggleSidebar()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <h1>DASHBOARD<br>MANUTENÇÃO</h1>
+            </div>
+            
+            <div class="stats-container-pcm">
+                <div class="stat-box-pcm">
+                    <span style="white-space: pre-wrap;">Qtd Ordem de&#10;Serviço</span>
+                    <strong id="pcm-total-os">0</strong>
+                </div>
+                <div class="stat-box-pcm">
+                    <span>MTBF</span>
+                    <strong id="pcm-mtbf">0.00</strong>
+                </div>
+                <div class="stat-box-pcm">
+                    <span>MTTR</span>
+                    <strong id="pcm-mttr">0.00</strong>
+                </div>
+                <div class="stat-box-pcm">
+                    <span>MTTA</span>
+                    <strong id="pcm-mtta">0.00</strong>
+                </div>
+                <div class="stat-box-pcm">
+                    <span>SLA</span>
+                    <strong id="pcm-sla">0.00%</strong>
+                </div>
+            </div>
 
-    <div id="pagination-dots" class="pagination-dots">
+            <div class="datetime-area-pcm">
+                <h2 id="relogio-pcm">--:--:--</h2>
+            </div>
+        </header>
+
+        <main class="pcm-grid">
+            <div class="pcm-card span-2-col">
+                <div class="pcm-card-header">
+                    <h3>MTTA por Mês</h3>
+                    <div class="pcm-badge-group">
+                        <span class="pcm-badge">FALHAS</span>
+                        <span class="pcm-badge active-badge-purple">MTBF</span>
+                        <span class="pcm-badge active-badge-blue">MTTR</span>
+                        <span class="pcm-badge active-badge-green">MTTA</span>
+                    </div>
+                </div>
+                <div class="line-chart-sim">
+                    <div class="chart-month-col"><span style="font-size:0.6vw; color:#10b981; font-weight:700;">0,52</span><div class="chart-point" style="margin-bottom: 6vh;"></div><span class="chart-label">Jan</span></div>
+                    <div class="chart-month-col"><span style="font-size:0.6vw; color:#10b981; font-weight:700; opacity:0">0</span><div class="chart-point"></div><span class="chart-label">Fev</span></div>
+                    <div class="chart-month-col"><span style="font-size:0.6vw; color:#10b981; font-weight:700; opacity:0">0</span><div class="chart-point"></div><span class="chart-label">Mar</span></div>
+                    <div class="chart-month-col"><span style="font-size:0.6vw; color:#10b981; font-weight:700; opacity:0">0</span><div class="chart-point"></div><span class="chart-label">Abr</span></div>
+                    <div class="chart-month-col"><span style="font-size:0.6vw; color:#10b981; font-weight:700; opacity:0">0</span><div class="chart-point"></div><span class="chart-label">Mai</span></div>
+                    <div class="chart-month-col"><span style="font-size:0.6vw; color:#10b981; font-weight:700; opacity:0">0</span><div class="chart-point"></div><span class="chart-label">Jul</span></div>
+                    <div class="chart-month-col"><span style="font-size:0.6vw; color:#10b981; font-weight:700; opacity:0">0</span><div class="chart-point"></div><span class="chart-label">Ago</span></div>
+                    <div class="chart-month-col"><span style="font-size:0.6vw; color:#10b981; font-weight:700; opacity:0">0</span><div class="chart-point"></div><span class="chart-label">Set</span></div>
+                    <div class="chart-month-col"><span style="font-size:0.6vw; color:#10b981; font-weight:700; opacity:0">0</span><div class="chart-point"></div><span class="chart-label">Out</span></div>
+                    <div class="chart-month-col"><span style="font-size:0.6vw; color:#10b981; font-weight:700; opacity:0">0</span><div class="chart-point"></div><span class="chart-label">Nov</span></div>
+                    <div class="chart-month-col"><span style="font-size:0.6vw; color:#10b981; font-weight:700;">0,02</span><div class="chart-point" style="margin-bottom: 1.5vh;"></div><span class="chart-label">Dez</span></div>
+                </div>
+            </div>
+
+            <div class="pcm-card">
+                <div class="pcm-card-header">
+                    <h3>Disponibilidade e Downtime</h3>
+                </div>
+                <div class="donut-container">
+                    <div style="position: relative;">
+                        <span style="position: absolute; top: -2vh; left: 0; font-size: 0.6vw; font-weight: 700; color: #64748b;" id="downtime-text-pct">0% (0.00%)</span>
+                        <div class="donut-ring" id="donut-ring-el">
+                            <div class="donut-inner"></div>
+                        </div>
+                        <span style="position: absolute; bottom: -1.5vh; right: -1vw; font-size: 0.6vw; font-weight: 700; color: #64748b;" id="disp-text-pct">100% (100.00%)</span>
+                    </div>
+                    
+                    <div class="legend-box">
+                        <div style="display: flex; align-items: center; gap: 0.5vw;"><span style="width:0.6vw; height:0.6vw; background:#8aa588; border-radius:50%;"></span> Disponibilidade</div>
+                        <div style="display: flex; align-items: center; gap: 0.5vw;"><span style="width:0.6vw; height:0.6vw; background:#cbd5e1; border-radius:50%;"></span> Downtime</div>
+                    </div>
+                </div>
+            </div>
+            <div class="pcm-card">
+                <div class="pcm-card-header">
+                    <h3>MTTA por Operador</h3>
+                    <span class="pcm-badge active-badge-gray">EQUIPE</span>
+                </div>
+                <div class="bars-container" id="mtta-operador-container">
+                </div>
+            </div>
+            <div class="pcm-card">
+                <div class="pcm-card-header">
+                    <h3>MTBF por Equipamento</h3>
+                </div>
+                <div class="bars-container" id="mtbf-equip-container">
+                </div>
+            </div>
+            <div class="pcm-card">
+                <div class="pcm-card-header">
+                    <h3>MTTR por Equipamento</h3>
+                </div>
+                <div class="bars-container" id="mttr-equip-container">
+                </div>
+            </div>
+        </main>
     </div>
 
     <script type="module">
@@ -314,11 +755,37 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
+        const MTBF_META = 200;
+
         let ordensServico = [];
         const ITEMS_PER_PAGE = 6;
         const TIME_PER_PAGE = 15000; 
         let currentPage = 0;
         let totalPages = 0;
+
+        window.toggleSidebar = function() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('sidebar-overlay').classList.toggle('active');
+        }
+
+        window.switchView = function(viewName) {
+            document.querySelectorAll('.view-container').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('active'));
+
+            const progressBarContainer = document.querySelector('.progress-bar-container');
+
+            if (viewName === 'usinagem') {
+                document.getElementById('view-usinagem').classList.add('active');
+                document.getElementById('menu-btn-usinagem').classList.add('active');
+                if (progressBarContainer) progressBarContainer.style.display = 'block';
+                reiniciarAnimacaoBarra();
+            } else if (viewName === 'pcm') {
+                document.getElementById('view-pcm').classList.add('active');
+                document.getElementById('menu-btn-pcm').classList.add('active');
+                if (progressBarContainer) progressBarContainer.style.display = 'none';
+            }
+            toggleSidebar();
+        }
 
         function escutarBancoDeDados() {
             const osRef = collection(db, "ordens_servico");
@@ -330,26 +797,67 @@
                     const dados = doc.data();
                     const statusAtual = dados.status ? dados.status.trim() : "";
                     
-                    if (statusAtual !== "Aguardando Aprovação" && statusAtual !== "Reprovada") {
+                    if (statusAtual !== "Aguardando Aprovação" && statusAtual !== "Reprovada" && statusAtual !== "Rejeitada") {
                         let cardClass = "bg-red";
                         let statusTipo = "pendente";
 
                         if (statusAtual === "Usinando") {
                             cardClass = "bg-yellow";
                             statusTipo = "processo";
-                        } else if (statusAtual === "Aguardando Coleta" || statusAtual === "Finalizado") {
+                        } else if (statusAtual === "Aguardando Coleta" || statusAtual === "Finalizado" || statusAtual === "Entregue") {
                             cardClass = "bg-green";
                             statusTipo = "concluida";
                         }
 
+                        const osId = dados.id_os || doc.id;
+                        const osTitulo = String(osId).startsWith("OS") ? osId : `OS ${osId}`;
+
+                        let tempoAtend = Number(dados.tempo_atendimento);
+                        let tempoRep = Number(dados.tempo_reparo);
+
+                        if (isNaN(tempoAtend) || tempoAtend === 0) {
+                            if (dados.data_criacao && Array.isArray(dados.historico_execucao)) {
+                                const logIni = dados.historico_execucao.find(h => h.acao === "Inicio");
+                                if (logIni && logIni.timestamp) {
+                                    const criacaoMs = dados.data_criacao.toDate().getTime();
+                                    const iniMs = logIni.timestamp.toDate().getTime();
+                                    tempoAtend = Number(((iniMs - criacaoMs) / 3600000).toFixed(2));
+                                }
+                            }
+                        }
+                        if (isNaN(tempoAtend) || tempoAtend < 0) tempoAtend = 0;
+
+                        if (isNaN(tempoRep) || tempoRep === 0) {
+                            if (Array.isArray(dados.historico_execucao)) {
+                                let totalMs = 0;
+                                let start = null;
+                                for (let log of dados.historico_execucao) {
+                                    const t = log.timestamp ? log.timestamp.toDate().getTime() : 0;
+                                    if (log.acao === "Inicio") {
+                                        start = t;
+                                    } else if (["Pausa", "Finalizacao", "Troca de Turno"].includes(log.acao) && start) {
+                                        totalMs += (t - start);
+                                        start = null;
+                                    }
+                                }
+                                tempoRep = Number((totalMs / 3600000).toFixed(2));
+                            }
+                        }
+                        if (isNaN(tempoRep) || tempoRep < 0) tempoRep = 0;
+
                         novasOrdens.push({
-                            id: dados.id_os || doc.id,
+                            id: osId,
                             statusTipo: statusTipo,
                             class: cardClass,
-                            conjunto: dados.conjunto ? `Conj: ${dados.conjunto}` : "Sem Conjunto",
-                            maquina: `OS ${dados.id_os || doc.id} (${statusAtual})`,
+                            equipamento: dados.equipamento || "Oficina Geral",
+                            conjunto: dados.conjunto ? `${dados.conjunto}` : "Manutenção",
+                            maquina: `${osTitulo} (${statusAtual})`,
                             desc: dados.descricao || "Sem descrição informada.",
-                            resp: dados.nome_operador ? dados.nome_operador : "Aguardando Operador"
+                            resp: dados.nome_operador ? dados.nome_operador : "Não Atribuído",
+                            status: statusAtual,
+                            tempoAtendimento: tempoAtend,
+                            tempoReparo: tempoRep,
+                            prazo: Number(dados.prazo_sla) || Number(dados.prazo) || 24
                         });
                     }
                 });
@@ -360,6 +868,7 @@
                 if (currentPage >= totalPages) currentPage = 0;
 
                 atualizarEstatisticas();
+                calcularEstatisticasPCM();
                 criarBolinhas();
                 renderizarPagina();
             }, (error) => {
@@ -378,13 +887,156 @@
             document.getElementById('count-concluida').textContent = concluidas;
         }
 
+        function calcularEstatisticasPCM() {
+            const totalOS = ordensServico.length;
+            document.getElementById('pcm-total-os').textContent = totalOS;
+
+            const elMtbf = document.getElementById('pcm-mtbf');
+
+            if (totalOS === 0) {
+                elMtbf.textContent = "0.00";
+                elMtbf.style.color = '#88a595';
+                document.getElementById('pcm-mttr').textContent = "0.00";
+                document.getElementById('pcm-mtta').textContent = "0.00";
+                document.getElementById('pcm-sla').textContent = "0.00%";
+                document.getElementById('donut-ring-el').style.background = `conic-gradient(#cbd5e1 0% 0%, #8aa588 0% 100%)`;
+                document.getElementById('downtime-text-pct').textContent = `0% (0.00%)`;
+                document.getElementById('disp-text-pct').textContent = `100% (100.00%)`;
+                document.getElementById('mtta-operador-container').innerHTML = '';
+                document.getElementById('mtbf-equip-container').innerHTML = '';
+                document.getElementById('mttr-equip-container').innerHTML = '';
+                return;
+            }
+
+            const osComAtendimento = ordensServico.filter(os => os.tempoAtendimento > 0);
+            const somaMTTA = osComAtendimento.reduce((acc, curr) => acc + curr.tempoAtendimento, 0);
+            const mtta = osComAtendimento.length > 0 ? somaMTTA / osComAtendimento.length : 0;
+
+            const osConcluidas = ordensServico.filter(os => os.statusTipo === 'concluida');
+            const totalReparos = osConcluidas.length > 0 ? osConcluidas.length : ordensServico.filter(os => os.tempoReparo > 0).length;
+            const somaMTTR = ordensServico.reduce((acc, curr) => acc + curr.tempoReparo, 0);
+            const mttr = totalReparos > 0 ? somaMTTR / totalReparos : 0;
+
+            let equipMap = {};
+            ordensServico.forEach(os => {
+                let eq = os.equipamento || "Oficina Geral";
+                if (!equipMap[eq]) equipMap[eq] = { totalReparo: 0, count: 0 };
+                equipMap[eq].totalReparo += os.tempoReparo;
+                equipMap[eq].count += 1;
+            });
+
+            const equipamentos = Object.keys(equipMap);
+            const qtdEquipamentos = Math.max(equipamentos.length, 1);
+            const tempoDisponivelTotal = qtdEquipamentos * 720;
+            const tempoOperacao = Math.max(tempoDisponivelTotal - somaMTTR, 0);
+            const mtbf = totalOS > 0 ? tempoOperacao / totalOS : tempoDisponivelTotal;
+
+            const dentroPrazoSLA = osConcluidas.filter(os => (os.tempoAtendimento + os.tempoReparo) <= os.prazo).length;
+            const sla = osConcluidas.length > 0 ? (dentroPrazoSLA / osConcluidas.length) * 100 : 0;
+
+            elMtbf.textContent = mtbf.toFixed(2);
+            if (mtbf < MTBF_META) {
+                elMtbf.style.color = '#e63946';
+            } else {
+                elMtbf.style.color = '#88a595';
+            }
+
+            document.getElementById('pcm-mttr').textContent = mttr.toFixed(2);
+            document.getElementById('pcm-mtta').textContent = mtta.toFixed(2);
+            document.getElementById('pcm-sla').textContent = sla.toFixed(2) + '%';
+
+            let dispPct = tempoDisponivelTotal > 0 ? (tempoOperacao / tempoDisponivelTotal) * 100 : 100;
+            if (dispPct > 100) dispPct = 100;
+            if (dispPct < 0) dispPct = 0;
+            let downtimePct = 100 - dispPct;
+
+            document.getElementById('donut-ring-el').style.background = `conic-gradient(#cbd5e1 0% ${downtimePct.toFixed(2)}%, #8aa588 ${downtimePct.toFixed(2)}% 100%)`;
+            document.getElementById('downtime-text-pct').textContent = `${Math.round(downtimePct)}% (${downtimePct.toFixed(2)}%)`;
+            document.getElementById('disp-text-pct').textContent = `${Math.round(dispPct)}% (${dispPct.toFixed(2)}%)`;
+
+            let operadoresMap = {};
+            ordensServico.forEach(os => {
+                if (!operadoresMap[os.resp]) operadoresMap[os.resp] = { somaTempo: 0, count: 0 };
+                operadoresMap[os.resp].somaTempo += os.tempoAtendimento;
+                operadoresMap[os.resp].count += 1;
+            });
+
+            let listaOp = Object.keys(operadoresMap);
+            let maxMtta = 0.01;
+            listaOp.forEach(op => {
+                let m = operadoresMap[op].somaTempo / operadoresMap[op].count;
+                if (m > maxMtta) maxMtta = m;
+            });
+
+            let htmlOperador = '';
+            listaOp.slice(0, 5).forEach(op => {
+                let m = operadoresMap[op].somaTempo / operadoresMap[op].count;
+                let width = Math.min((m / maxMtta) * 100, 100);
+                htmlOperador += `
+                    <div class="bar-row">
+                        <div class="bar-info-text">${op}</div>
+                        <div class="bar-track"><div class="bar-fill green" style="width: ${width}%;"></div></div>
+                        <div class="bar-value">${m.toFixed(2)}</div>
+                    </div>
+                `;
+            });
+            document.getElementById('mtta-operador-container').innerHTML = htmlOperador;
+
+            let htmlMtbf = '';
+            let htmlMttr = '';
+            let sortedEquips = Object.keys(equipMap).sort();
+
+            let maxEqMtbf = 1;
+            let maxEqMttr = 1;
+            sortedEquips.forEach(eq => {
+                let count = equipMap[eq].count;
+                let rep = equipMap[eq].totalReparo;
+                let b = count > 0 ? Math.max(720 - rep, 0) / count : 720;
+                let r = count > 0 ? rep / count : 0;
+                if (b > maxEqMtbf) maxEqMtbf = b;
+                if (r > maxEqMttr) maxEqMttr = r;
+            });
+
+            sortedEquips.slice(0, 5).forEach(eq => {
+                let count = equipMap[eq].count;
+                let rep = equipMap[eq].totalReparo;
+                let eqMttr = count > 0 ? rep / count : 0;
+                let eqMtbf = count > 0 ? Math.max(720 - rep, 0) / count : 720;
+
+                let widthMtbf = Math.min((eqMtbf / maxEqMtbf) * 100, 100);
+                let widthMttr = Math.min((eqMttr / maxEqMttr) * 100, 100);
+
+                let corBarraMtbf = eqMtbf < MTBF_META ? '#e63946' : '#a488a5';
+                let corTextoMtbf = eqMtbf < MTBF_META ? '#e63946' : '#334155';
+
+                htmlMtbf += `
+                    <div class="bar-row">
+                        <div class="bar-info-text">${eq}</div>
+                        <div class="bar-track"><div class="bar-fill" style="width: ${widthMtbf}%; background-color: ${corBarraMtbf};"></div></div>
+                        <div class="bar-value" style="color: ${corTextoMtbf}; font-weight: 900;">${eqMtbf.toFixed(2)}</div>
+                    </div>
+                `;
+
+                htmlMttr += `
+                    <div class="bar-row">
+                        <div class="bar-info-text">${eq}</div>
+                        <div class="bar-track"><div class="bar-fill blue" style="width: ${widthMttr}%;"></div></div>
+                        <div class="bar-value">${eqMttr.toFixed(2)}</div>
+                    </div>
+                `;
+            });
+
+            document.getElementById('mtbf-equip-container').innerHTML = htmlMtbf;
+            document.getElementById('mttr-equip-container').innerHTML = htmlMttr;
+        }
+
         function gerarCartaoHTML(os) {
             const userIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>`;
             return `
                 <div class="card ${os.class}">
                     <div class="card-left">
                         <h2>${os.id}</h2>
-                        <p>${os.conjunto}</p>
+                        <p>${os.equipamento}</p>
                     </div>
                     <div class="card-right">
                         <h3>${os.maquina}</h3>
@@ -435,6 +1087,9 @@
         }
 
         function proximaPagina() {
+            const usinagemAtiva = document.getElementById('view-usinagem').classList.contains('active');
+            if (!usinagemAtiva) return;
+
             if (totalPages > 1) {
                 currentPage++;
                 if (currentPage >= totalPages) {
@@ -458,8 +1113,13 @@
             const mesStr = meses[agora.getMonth()];
             const ano = agora.getFullYear();
 
-            document.getElementById('relogio').textContent = `${horas}:${minutos}:${segundos}`;
-            document.getElementById('data-atual').textContent = `${diaStr}, ${dia} De ${mesStr} De ${ano}`;
+            const relogioStr = `${horas}:${minutos}:${segundos}`;
+            const dataStr = `${diaStr}, ${dia} De ${mesStr} De ${ano}`;
+
+            document.getElementById('relogio').textContent = relogioStr;
+            document.getElementById('data-atual').textContent = dataStr;
+
+            document.getElementById('relogio-pcm').textContent = relogioStr;
         }
 
         escutarBancoDeDados(); 
