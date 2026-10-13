@@ -243,7 +243,7 @@
                 </button>
                 <div class="title-area">
                     <h1>Painel de Intervenção</h1>
-                    <p>Setor de Usinagem</p>
+                    <p id="periodo-usinagem">Setor de Usinagem</p>
                     <div class="mes-nav">
                         <button onclick="mudarMes(-1)" data-role="prev" aria-label="Mês anterior">&lsaquo;</button>
                         <span class="mes-label" data-role="label">—</span>
@@ -507,7 +507,8 @@
                 nav.querySelector('[data-role="next"]').disabled = idxSel >= idxAtual;
             });
 
-            document.getElementById('periodo-usinagem').textContent = `Setor de Usinagem • ${texto}`;
+            const periodo = document.getElementById('periodo-usinagem');
+            if (periodo) periodo.textContent = `Setor de Usinagem • ${texto}`;
         }
 
         function processarDocumento(id, dados, agoraMs) {
