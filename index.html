@@ -7,12 +7,7 @@
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap');
 
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        font-family: 'Inter', sans-serif;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
 
     body {
         background-color: #f4f6f8;
@@ -21,304 +16,93 @@
         overflow: hidden;
         display: flex;
         flex-direction: column;
-        padding: 1vw; 
+        padding: 1vw;
         gap: 1vw;
         position: relative;
     }
 
-    .progress-bar-container {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 1vh;
-        background-color: #e2e8f0;
-        z-index: 10;
-    }
-
-    .progress-bar {
-        height: 100%;
-        background-color: #78a795;
-        width: 0%;
-        border-bottom-right-radius: 1vw;
-    }
-
-    @keyframes fillProgress {
-        from { width: 0%; }
-        to { width: 100%; }
-    }
+    .progress-bar-container { position: absolute; top: 0; left: 0; width: 100vw; height: 1vh; background-color: #e2e8f0; z-index: 10; }
+    .progress-bar { height: 100%; background-color: #78a795; width: 0%; border-bottom-right-radius: 1vw; }
+    @keyframes fillProgress { from { width: 0%; } to { width: 100%; } }
 
     .hamburger-btn {
-        background: #ffffff;
-        border: 0.15vw solid #e2e8f0;
-        border-radius: 0.8vw;
-        width: 3.5vw;
-        height: 3.5vw;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 0.4vh;
-        cursor: pointer;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        transition: all 0.3s ease;
-        z-index: 100;
-        flex-shrink: 0;
+        background: #ffffff; border: 0.15vw solid #e2e8f0; border-radius: 0.8vw;
+        width: 3.5vw; height: 3.5vw; display: flex; flex-direction: column;
+        justify-content: center; align-items: center; gap: 0.4vh; cursor: pointer;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); transition: all 0.3s ease; z-index: 100; flex-shrink: 0;
     }
-
-    .hamburger-btn:hover {
-        border-color: #78a795;
-    }
-
-    .hamburger-btn span {
-        width: 1.8vw;
-        height: 0.3vh;
-        background-color: #78a795;
-        border-radius: 2px;
-        transition: all 0.3s ease;
-    }
+    .hamburger-btn:hover { border-color: #78a795; }
+    .hamburger-btn span { width: 1.8vw; height: 0.3vh; background-color: #78a795; border-radius: 2px; transition: all 0.3s ease; }
 
     .sidebar-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: rgba(0, 0, 0, 0.4);
-        backdrop-filter: blur(4px);
-        z-index: 998;
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.3s ease;
+        position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+        background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(4px); z-index: 998;
+        opacity: 0; visibility: hidden; transition: all 0.3s ease;
     }
-
-    .sidebar-overlay.active {
-        opacity: 1;
-        visibility: visible;
-    }
+    .sidebar-overlay.active { opacity: 1; visibility: visible; }
 
     .sidebar {
-        position: fixed;
-        top: 0;
-        left: -300px;
-        width: 280px;
-        height: 100vh;
-        background: #ffffff;
-        box-shadow: 8px 0 24px rgba(0, 0, 0, 0.1);
-        z-index: 999;
-        display: flex;
-        flex-direction: column;
-        padding: 20px;
-        gap: 20px;
-        transition: left 0.3s ease;
+        position: fixed; top: 0; left: -300px; width: 280px; height: 100vh;
+        background: #ffffff; box-shadow: 8px 0 24px rgba(0, 0, 0, 0.1); z-index: 999;
+        display: flex; flex-direction: column; padding: 20px; gap: 20px; transition: left 0.3s ease;
     }
-
-    .sidebar.active {
-        left: 0;
-    }
-
-    .sidebar-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 2px solid #f1f5f9;
-        padding-bottom: 15px;
-    }
-
-    .sidebar-header h2 {
-        font-size: 1.2rem;
-        color: #78a795;
-        font-weight: 900;
-    }
-
-    .close-sidebar {
-        background: none;
-        border: none;
-        font-size: 1.8rem;
-        color: #94a3b8;
-        cursor: pointer;
-        font-weight: 900;
-    }
-
-    .sidebar-menu {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
-
+    .sidebar.active { left: 0; }
+    .sidebar-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f1f5f9; padding-bottom: 15px; }
+    .sidebar-header h2 { font-size: 1.2rem; color: #78a795; font-weight: 900; }
+    .close-sidebar { background: none; border: none; font-size: 1.8rem; color: #94a3b8; cursor: pointer; font-weight: 900; }
+    .sidebar-menu { display: flex; flex-direction: column; gap: 10px; }
     .menu-item {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding: 12px;
-        border-radius: 12px;
-        background: transparent;
-        border: none;
-        font-size: 1rem;
-        font-weight: 700;
-        color: #64748b;
-        cursor: pointer;
-        text-align: left;
-        transition: all 0.2s ease;
+        display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 12px;
+        background: transparent; border: none; font-size: 1rem; font-weight: 700; color: #64748b;
+        cursor: pointer; text-align: left; transition: all 0.2s ease;
     }
+    .menu-item:hover, .menu-item.active { background: #f0fdf4; color: #78a795; }
+    .menu-item svg { width: 20px; height: 20px; }
 
-    .menu-item:hover, .menu-item.active {
-        background: #f0fdf4;
-        color: #78a795;
-    }
+    .view-container { display: none; flex: 1; flex-direction: column; gap: 1.5vw; width: 100%; height: 100%; }
+    .view-container.active { display: flex; }
 
-    .menu-item svg {
-        width: 20px;
-        height: 20px;
+    /* Seletor de mês */
+    .mes-nav { display: flex; align-items: center; gap: 0.5vw; margin-top: 0.8vh; }
+    .mes-nav button {
+        background: #ffffff; border: 1px solid #e2e8f0; border-radius: 0.5vw;
+        width: 2.2vw; height: 2.2vw; min-width: 28px; min-height: 28px;
+        font-size: 1.2vw; font-weight: 900; color: #78a795; cursor: pointer; transition: all 0.2s ease;
     }
-
-    .view-container {
-        display: none;
-        flex: 1;
-        flex-direction: column;
-        gap: 1.5vw;
-        width: 100%;
-        height: 100%;
-    }
-
-    .view-container.active {
-        display: flex;
-    }
+    .mes-nav button:hover:not(:disabled) { border-color: #78a795; background: #f0fdf4; }
+    .mes-nav button:disabled { color: #cbd5e1; cursor: default; }
+    .mes-nav .mes-label { font-size: 1vw; font-weight: 800; color: #475569; white-space: nowrap; min-width: 11vw; text-align: center; }
+    .mes-nav .mes-tag { font-size: 0.7vw; font-weight: 800; color: #ffffff; background: #78a795; padding: 0.2vh 0.5vw; border-radius: 0.3vw; text-transform: uppercase; }
 
     .header-pcm {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: transparent;
-        min-height: 12vh;
-        margin-top: 1vh;
-        padding: 0 1vw;
-        width: 100%;
-        gap: 1.5vw;
+        display: flex; justify-content: space-between; align-items: center; background: transparent;
+        min-height: 12vh; margin-top: 1vh; padding: 0 1vw; width: 100%; gap: 1.5vw;
     }
-
-    .title-area-wrapper {
-        display: flex;
-        align-items: center;
-        gap: 1vw;
-        flex-shrink: 0;
-    }
-
-    .title-area-wrapper h1 {
-        font-size: 1.6vw;
-        font-weight: 900;
-        color: #78a795;
-        text-transform: uppercase;
-        letter-spacing: -0.05vw;
-        line-height: 1;
-        white-space: nowrap;
-    }
-
-    .stats-container-pcm {
-        display: flex;
-        flex: 1;
-        gap: 0.8vw;
-        justify-content: space-between;
-    }
-
+    .title-area-wrapper { display: flex; align-items: center; gap: 1vw; flex-shrink: 0; }
+    .title-area-wrapper h1 { font-size: 1.6vw; font-weight: 900; color: #78a795; text-transform: uppercase; letter-spacing: -0.05vw; line-height: 1; white-space: nowrap; }
+    .stats-container-pcm { display: flex; flex: 1; gap: 0.8vw; justify-content: space-between; }
     .stat-box-pcm {
-        background: #ffffff;
-        border: 1px solid #e2e8f0;
-        border-radius: 1vw;
-        padding: 1vh 1vw;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: center;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-        flex: 1;
-        min-width: 0;
+        background: #ffffff; border: 1px solid #e2e8f0; border-radius: 1vw; padding: 1vh 1vw;
+        display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.03); flex: 1; min-width: 0; gap: 0.3vh;
     }
-
-    .stat-box-pcm span {
-        font-size: 0.7vw;
-        font-weight: 800;
-        color: #64748b;
-        text-transform: uppercase;
-        margin-bottom: 0.2vh;
-        line-height: 1.1;
-    }
-
-    .stat-box-pcm strong {
-        font-size: 2.2vw;
-        font-weight: 900;
-        color: #88a595;
-        line-height: 1;
-        transition: color 0.3s ease;
-    }
-
-    .datetime-area-pcm {
-        text-align: right;
-        min-width: 10%;
-    }
-
-    .datetime-area-pcm h2 {
-        font-size: 2.2vw;
-        font-weight: 900;
-        color: #78a795;
-        font-variant-numeric: tabular-nums;
-        line-height: 1;
-        white-space: nowrap;
-    }
+    .stat-box-pcm span { font-size: 0.7vw; font-weight: 800; color: #64748b; text-transform: uppercase; line-height: 1.1; }
+    .stat-box-pcm strong { font-size: 2.2vw; font-weight: 900; color: #88a595; line-height: 1; transition: color 0.3s ease; }
+    .datetime-area-pcm { text-align: right; min-width: 10%; }
+    .datetime-area-pcm h2 { font-size: 2.2vw; font-weight: 900; color: #78a795; font-variant-numeric: tabular-nums; line-height: 1; white-space: nowrap; }
 
     .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: transparent;
-        height: 14vh;
-        margin-top: 1vh;
-        padding: 0 1vw;
-        gap: 1vw;
+        display: flex; justify-content: space-between; align-items: center; background: transparent;
+        height: 14vh; margin-top: 1vh; padding: 0 1vw; gap: 1vw;
     }
-    .title-area {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-    .title-area h1 { 
-        font-size: 1.8vw; 
-        font-weight: 900; 
-        color: #78a795; 
-        letter-spacing: -0.05vw; 
-        line-height: 1.1; 
-        white-space: nowrap; 
-    }
-    .title-area p { 
-        font-size: 0.95vw; 
-        font-weight: 800; 
-        color: #94a3b8; 
-        text-transform: uppercase; 
-        letter-spacing: 0.1vw; 
-        margin-top: 0.4vh; 
-        white-space: nowrap; 
-    }
-    .stats-container { 
-        display: flex; 
-        gap: 0.8vw; 
-        height: 100%; 
-        align-items: center; 
-        flex-shrink: 0; 
-    }
-    .stat-box { 
-        display: flex; 
-        flex-direction: column; 
-        align-items: center; 
-        justify-content: center; 
-        text-align: center; 
-        padding: 1vh 1.2vw; 
-        border-radius: 1vw; 
-        border-width: 0.2vw; 
-        border-style: solid; 
-        min-width: 9vw; 
-        min-height: 10vh; 
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); 
-        background-clip: padding-box; 
+    .title-area { display: flex; flex-direction: column; justify-content: center; }
+    .title-area h1 { font-size: 1.8vw; font-weight: 900; color: #78a795; letter-spacing: -0.05vw; line-height: 1.1; white-space: nowrap; }
+    .title-area p { font-size: 0.95vw; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.1vw; margin-top: 0.4vh; white-space: nowrap; }
+    .stats-container { display: flex; gap: 0.8vw; height: 100%; align-items: center; flex-shrink: 0; }
+    .stat-box {
+        display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+        padding: 1vh 1.2vw; border-radius: 1vw; border-width: 0.2vw; border-style: solid;
+        min-width: 9vw; min-height: 10vh; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); background-clip: padding-box;
     }
     .stat-box.total { background-color: #ffffff; border-color: #f1f5f9; color: #1e293b; }
     .stat-box.pendente { background-color: #fff1f2; border-color: #ffe4e6; color: #e11d48; }
@@ -331,16 +115,9 @@
     .datetime-area h2 { font-size: 3vw; font-weight: 900; color: #78a795; letter-spacing: -0.05vw; font-variant-numeric: tabular-nums; line-height: 1; white-space: nowrap; }
 
     .grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr); 
-        grid-template-rows: repeat(3, 1fr);    
-        gap: 1.5vw;
-        flex: 1;
-        opacity: 1;
-        transition: opacity 0.5s ease-in-out;
-        padding: 0 1vw 1vw 1vw;
+        display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(3, 1fr);
+        gap: 1.5vw; flex: 1; opacity: 1; transition: opacity 0.5s ease-in-out; padding: 0 1vw 1vw 1vw;
     }
-
     .grid.fade-out { opacity: 0; }
     .card { border-radius: 1.5vw; overflow: hidden; display: flex; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06); }
     .card-left { width: 32%; padding: 1.2vw 1.5vw; display: flex; flex-direction: column; justify-content: center; border-right: 2px solid rgba(255, 255, 255, 0.25); }
@@ -351,212 +128,87 @@
     .card-right p.desc { font-size: 1vw; font-weight: 600; opacity: 0.9; margin-bottom: 1vh; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
     .assignee { display: inline-flex; align-items: center; gap: 0.5vw; background: rgba(255, 255, 255, 0.2); padding: 0.4vh 0.8vw; border-radius: 3vw; font-size: 0.8vw; font-weight: 700; width: fit-content; }
     .assignee svg { width: 1vw; height: 1vw; }
-    .bg-red { background-color: #e63946; color: #ffffff; }     
-    .bg-yellow { background-color: #ffb703; color: #ffffff; }  
-    .bg-green { background-color: #2d6a4f; color: #ffffff; }   
+    .bg-red { background-color: #e63946; color: #ffffff; }
+    .bg-yellow { background-color: #ffb703; color: #ffffff; }
+    .bg-green { background-color: #2d6a4f; color: #ffffff; }
 
-    .pagination-dots {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 0.8vw;
-        height: 2vh;
-        margin-bottom: 0.5vh;
-    }
+    .pagination-dots { display: flex; justify-content: center; align-items: center; gap: 0.8vw; height: 2vh; margin-bottom: 0.5vh; }
     .dot { width: 0.8vw; height: 0.8vw; border-radius: 50%; background-color: #cbd5e1; transition: all 0.3s ease; }
     .dot.active { background-color: #78a795; width: 2vw; border-radius: 1vw; }
 
     .pcm-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr; 
-        grid-template-rows: 1.3fr 1fr;      
-        gap: 1vw;
-        flex: 1;
-        padding: 0 1vw 1vw 1vw;
-        overflow: hidden;
+        display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1.3fr 1fr;
+        gap: 1vw; flex: 1; padding: 0 1vw 1vw 1vw; overflow: hidden;
     }
-
     .pcm-card {
-        background: #ffffff;
-        border: 1px solid #e2e8f0;
-        border-radius: 1vw;
-        padding: 1.2vw;
-        display: flex;
-        flex-direction: column;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-        color: #1e293b;
-        height: 100%;
-        overflow: hidden;
+        background: #ffffff; border: 1px solid #e2e8f0; border-radius: 1vw; padding: 1.2vw;
+        display: flex; flex-direction: column; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        color: #1e293b; height: 100%; overflow: hidden; min-height: 0;
     }
-
-    .span-2-col {
-        grid-column: span 2;
-    }
-
-    .pcm-card-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1.5vh;
-        flex-shrink: 0;
-    }
-
-    .pcm-card-header h3 {
-        font-size: 1vw;
-        font-weight: 800;
-        color: #475569;
-    }
-
-    .pcm-badge-group {
-        display: flex;
-        gap: 0.3vw;
-    }
-
-    .pcm-badge {
-        background: #f1f5f9;
-        padding: 0.3vh 0.8vw;
-        border-radius: 0.3vw;
-        font-size: 0.7vw;
-        font-weight: 700;
-        color: #64748b;
-        border: 1px solid #e2e8f0;
-    }
+    .span-2-col { grid-column: span 2; }
+    .pcm-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5vh; flex-shrink: 0; }
+    .pcm-card-header h3 { font-size: 1vw; font-weight: 800; color: #475569; }
+    .pcm-badge-group { display: flex; gap: 0.3vw; align-items: center; }
+    .pcm-badge { background: #f1f5f9; padding: 0.3vh 0.8vw; border-radius: 0.3vw; font-size: 0.7vw; font-weight: 700; color: #64748b; border: 1px solid #e2e8f0; }
     .pcm-badge.active-badge-green { background: #88a5a4; color: #ffffff; border-color: #88a5a4; }
-    .pcm-badge.active-badge-purple { background: #9588a5; color: #ffffff; border-color: #9588a5; }
-    .pcm-badge.active-badge-blue { background: #758d9d; color: #ffffff; border-color: #758d9d; }
     .pcm-badge.active-badge-gray { background: #e2e8f0; color: #1e293b; border-color: #cbd5e1; }
 
-    .line-chart-sim {
-        display: flex;
-        align-items: flex-end;
-        justify-content: space-between;
-        flex: 1;
-        padding-top: 1vh;
-        border-bottom: 2px solid #e2e8f0;
-        position: relative;
+    /* Botão "ver mais" */
+    .ver-mais {
+        background: #f0fdf4; border: 1px solid #bbf7d0; color: #15803d;
+        font-size: 0.7vw; font-weight: 800; padding: 0.3vh 0.6vw; border-radius: 0.4vw;
+        cursor: pointer; transition: all 0.2s ease; white-space: nowrap;
     }
+    .ver-mais:hover { background: #dcfce7; }
 
-    .chart-month-col {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0.5vh;
-        flex: 1;
-        height: 100%;
-        justify-content: flex-end;
-        padding-bottom: 0.5vh;
-    }
+    .clicavel { cursor: pointer; }
+    .bar-row.clicavel { border-radius: 4px; padding: 0.2vh 0.2vw; margin: 0 -0.2vw; }
+    .bar-row.clicavel:hover { background: #f8fafc; }
 
-    .chart-point {
-        width: 0.6vw;
-        height: 0.6vw;
-        background: #10b981;
-        border-radius: 50%;
-        box-shadow: 0 0 5px rgba(16, 185, 129, 0.5);
-    }
+    /* Gráfico de linha (SVG) */
+    .chart-wrap { flex: 1; min-height: 0; position: relative; }
+    .chart-wrap svg { width: 100%; height: 100%; display: block; }
+    .chart-empty { display: flex; align-items: center; justify-content: center; height: 100%; font-size: 1vw; font-weight: 700; color: #94a3b8; }
 
-    .chart-label {
-        font-size: 0.7vw;
-        color: #94a3b8;
-        font-weight: 700;
-        margin-top: 0.2vh;
-    }
-
-    .bars-container {
-        display: flex;
-        flex-direction: column;
-        gap: 1vh;
-        flex: 1;
-        justify-content: flex-start;
-        overflow-y: auto;
-        padding-right: 0.5vw;
-    }
-
-    .bar-row {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 0.8vw;
-        width: 100%;
-    }
-
-    .bar-info-text {
-        font-size: 0.75vw;
-        font-weight: 700;
-        color: #334155;
-        width: 6vw; 
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-    
-    .bar-value {
-        font-size: 0.75vw;
-        font-weight: 800;
-        color: #334155;
-        margin-left: auto;
-        text-align: right;
-        min-width: 2vw;
-        transition: color 0.3s ease;
-    }
-
-    .bar-track {
-        flex: 1;
-        height: 1vh;
-        background: #f1f5f9;
-        border-radius: 2px;
-        overflow: hidden;
-    }
-
-    .bar-fill {
-        height: 100%;
-        border-radius: 2px;
-        transition: width 0.5s ease, background-color 0.3s ease;
-    }
-
+    .bars-container { display: flex; flex-direction: column; gap: 1vh; flex: 1; justify-content: flex-start; overflow-y: auto; padding-right: 0.5vw; }
+    .bar-row { display: flex; flex-direction: row; align-items: center; gap: 0.8vw; width: 100%; }
+    .bar-info-text { font-size: 0.75vw; font-weight: 700; color: #334155; width: 6vw; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .bar-value { font-size: 0.75vw; font-weight: 800; color: #334155; margin-left: auto; text-align: right; min-width: 2vw; transition: color 0.3s ease; }
+    .bar-track { flex: 1; height: 1vh; background: #f1f5f9; border-radius: 2px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 2px; transition: width 0.5s ease, background-color 0.3s ease; }
     .bar-fill.green { background: #88a5a4; }
-    .bar-fill.purple { background: #a488a5; }
     .bar-fill.blue { background: #758d9d; }
 
-    .donut-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 1.5vw;
-        flex: 1;
-    }
+    .donut-container { display: flex; align-items: center; justify-content: center; gap: 1.5vw; flex: 1; }
+    .donut-ring { width: 9vw; height: 9vw; min-width: 90px; min-height: 90px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .donut-inner { width: 6.5vw; height: 6.5vw; min-width: 65px; min-height: 65px; background: #ffffff; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .legend-box { display: flex; flex-direction: column; gap: 1vh; font-size: 0.8vw; font-weight: 700; color: #334155; }
 
-    .donut-ring {
-        width: 9vw;
-        height: 9vw;
-        min-width: 90px;
-        min-height: 90px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    /* Modal de detalhes */
+    .modal-overlay {
+        position: fixed; inset: 0; background: rgba(15, 23, 42, 0.45);
+        display: none; align-items: center; justify-content: center; z-index: 1000; padding: 2vw;
     }
-
-    .donut-inner {
-        width: 6.5vw;
-        height: 6.5vw;
-        min-width: 65px;
-        min-height: 65px;
-        background: #ffffff;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    .modal-overlay.active { display: flex; }
+    .modal-box {
+        background: #ffffff; border-radius: 1.2vw; width: min(980px, 94vw); max-height: 86vh;
+        display: flex; flex-direction: column; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2); padding: 1.5vw;
     }
-
-    .legend-box {
-        display: flex;
-        flex-direction: column;
-        gap: 1vh;
-        font-size: 0.8vw;
-        font-weight: 700;
-        color: #334155;
+    .modal-head { display: flex; justify-content: space-between; align-items: center; gap: 1vw; }
+    .modal-head h2 { font-size: 1.4vw; font-weight: 900; color: #1e293b; }
+    .modal-head button { background: none; border: none; font-size: 2vw; color: #94a3b8; cursor: pointer; line-height: 1; }
+    .modal-formula {
+        margin: 1.5vh 0; font-size: 0.95vw; font-weight: 700; color: #475569;
+        background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.6vw; padding: 1.2vh 1vw;
     }
+    .modal-table-wrap { overflow: auto; flex: 1; min-height: 0; border: 1px solid #e2e8f0; border-radius: 0.6vw; }
+    .modal-table-wrap table { width: 100%; border-collapse: collapse; font-size: 0.85vw; }
+    .modal-table-wrap th {
+        position: sticky; top: 0; background: #f1f5f9; text-align: left;
+        padding: 1vh 0.8vw; color: #475569; font-weight: 800; white-space: nowrap;
+    }
+    .modal-table-wrap td { padding: 0.9vh 0.8vw; border-top: 1px solid #f1f5f9; color: #334155; font-weight: 600; white-space: nowrap; }
+    .modal-table-wrap td.vazio { text-align: center; color: #94a3b8; }
 </style>
 </head>
 <body>
@@ -587,33 +239,25 @@
         <header class="header">
             <div class="title-area-wrapper" style="gap: 1.2vw;">
                 <button class="hamburger-btn" onclick="toggleSidebar()">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                    <span></span><span></span><span></span>
                 </button>
                 <div class="title-area">
                     <h1>Painel de Intervenção</h1>
                     <p>Setor de Usinagem</p>
+                    <div class="mes-nav">
+                        <button onclick="mudarMes(-1)" data-role="prev" aria-label="Mês anterior">&lsaquo;</button>
+                        <span class="mes-label" data-role="label">—</span>
+                        <button onclick="mudarMes(1)" data-role="next" aria-label="Próximo mês">&rsaquo;</button>
+                        <span class="mes-tag" data-role="tag" style="display:none;">Atual</span>
+                    </div>
                 </div>
             </div>
-            
+
             <div class="stats-container">
-                <div class="stat-box total">
-                    <strong id="count-total">0</strong>
-                    <span>Total OS</span>
-                </div>
-                <div class="stat-box pendente">
-                    <strong id="count-pendente">0</strong>
-                    <span>Pendentes</span>
-                </div>
-                <div class="stat-box processo">
-                    <strong id="count-processo">0</strong>
-                    <span>Em Processo</span>
-                </div>
-                <div class="stat-box concluida">
-                    <strong id="count-concluida">0</strong>
-                    <span>Concluídas</span>
-                </div>
+                <div class="stat-box total"><strong id="count-total">0</strong><span>Total OS</span></div>
+                <div class="stat-box pendente"><strong id="count-pendente">0</strong><span>Pendentes</span></div>
+                <div class="stat-box processo"><strong id="count-processo">0</strong><span>Em Processo</span></div>
+                <div class="stat-box concluida"><strong id="count-concluida">0</strong><span>Concluídas</span></div>
             </div>
 
             <div class="datetime-area">
@@ -622,44 +266,52 @@
             </div>
         </header>
 
-        <main id="card-grid" class="grid">
-        </main>
-
-        <div id="pagination-dots" class="pagination-dots">
-        </div>
+        <main id="card-grid" class="grid"></main>
+        <div id="pagination-dots" class="pagination-dots"></div>
     </div>
 
     <div id="view-pcm" class="view-container">
         <header class="header-pcm">
             <div class="title-area-wrapper">
                 <button class="hamburger-btn" onclick="toggleSidebar()">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                    <span></span><span></span><span></span>
                 </button>
-                <h1>DASHBOARD<br>MANUTENÇÃO</h1>
+                <div>
+                    <h1>DASHBOARD<br>MANUTENÇÃO</h1>
+                    <div class="mes-nav">
+                        <button onclick="mudarMes(-1)" data-role="prev" aria-label="Mês anterior">&lsaquo;</button>
+                        <span class="mes-label" data-role="label">—</span>
+                        <button onclick="mudarMes(1)" data-role="next" aria-label="Próximo mês">&rsaquo;</button>
+                        <span class="mes-tag" data-role="tag" style="display:none;">Atual</span>
+                    </div>
+                </div>
             </div>
-            
+
             <div class="stats-container-pcm">
                 <div class="stat-box-pcm">
                     <span style="white-space: pre-wrap;">Qtd Ordem de&#10;Serviço</span>
                     <strong id="pcm-total-os">0</strong>
+                    <button class="ver-mais" id="det-qtd">ver mais</button>
                 </div>
                 <div class="stat-box-pcm">
                     <span>MTBF</span>
                     <strong id="pcm-mtbf">0.00</strong>
+                    <button class="ver-mais" id="det-mtbf">ver mais</button>
                 </div>
                 <div class="stat-box-pcm">
                     <span>MTTR</span>
                     <strong id="pcm-mttr">0.00</strong>
+                    <button class="ver-mais" id="det-mttr">ver mais</button>
                 </div>
                 <div class="stat-box-pcm">
                     <span>MTTA</span>
                     <strong id="pcm-mtta">0.00</strong>
+                    <button class="ver-mais" id="det-mtta">ver mais</button>
                 </div>
                 <div class="stat-box-pcm">
                     <span>SLA</span>
-                    <strong id="pcm-sla">0.00%</strong>
+                    <strong id="pcm-sla">—</strong>
+                    <button class="ver-mais" id="det-sla">ver mais</button>
                 </div>
             </div>
 
@@ -671,71 +323,83 @@
         <main class="pcm-grid">
             <div class="pcm-card span-2-col">
                 <div class="pcm-card-header">
-                    <h3>MTTA por Mês</h3>
+                    <h3 id="titulo-grafico">MTTA por Mês</h3>
                     <div class="pcm-badge-group">
-                        <span class="pcm-badge">FALHAS</span>
-                        <span class="pcm-badge active-badge-purple">MTBF</span>
-                        <span class="pcm-badge active-badge-blue">MTTR</span>
-                        <span class="pcm-badge active-badge-green">MTTA</span>
+                        <button class="ver-mais" id="det-chart">ver mais</button>
+                        <span class="pcm-badge active-badge-green">MTTA (h)</span>
                     </div>
                 </div>
-                <div class="line-chart-sim">
-                    <div class="chart-month-col"><span style="font-size:0.6vw; color:#10b981; font-weight:700;">0,52</span><div class="chart-point" style="margin-bottom: 6vh;"></div><span class="chart-label">Jan</span></div>
-                    <div class="chart-month-col"><span style="font-size:0.6vw; color:#10b981; font-weight:700; opacity:0">0</span><div class="chart-point"></div><span class="chart-label">Fev</span></div>
-                    <div class="chart-month-col"><span style="font-size:0.6vw; color:#10b981; font-weight:700; opacity:0">0</span><div class="chart-point"></div><span class="chart-label">Mar</span></div>
-                    <div class="chart-month-col"><span style="font-size:0.6vw; color:#10b981; font-weight:700; opacity:0">0</span><div class="chart-point"></div><span class="chart-label">Abr</span></div>
-                    <div class="chart-month-col"><span style="font-size:0.6vw; color:#10b981; font-weight:700; opacity:0">0</span><div class="chart-point"></div><span class="chart-label">Mai</span></div>
-                    <div class="chart-month-col"><span style="font-size:0.6vw; color:#10b981; font-weight:700; opacity:0">0</span><div class="chart-point"></div><span class="chart-label">Jul</span></div>
-                    <div class="chart-month-col"><span style="font-size:0.6vw; color:#10b981; font-weight:700; opacity:0">0</span><div class="chart-point"></div><span class="chart-label">Ago</span></div>
-                    <div class="chart-month-col"><span style="font-size:0.6vw; color:#10b981; font-weight:700; opacity:0">0</span><div class="chart-point"></div><span class="chart-label">Set</span></div>
-                    <div class="chart-month-col"><span style="font-size:0.6vw; color:#10b981; font-weight:700; opacity:0">0</span><div class="chart-point"></div><span class="chart-label">Out</span></div>
-                    <div class="chart-month-col"><span style="font-size:0.6vw; color:#10b981; font-weight:700; opacity:0">0</span><div class="chart-point"></div><span class="chart-label">Nov</span></div>
-                    <div class="chart-month-col"><span style="font-size:0.6vw; color:#10b981; font-weight:700;">0,02</span><div class="chart-point" style="margin-bottom: 1.5vh;"></div><span class="chart-label">Dez</span></div>
-                </div>
+                <div class="chart-wrap" id="mtta-mes-container"></div>
             </div>
 
             <div class="pcm-card">
                 <div class="pcm-card-header">
                     <h3>Disponibilidade e Downtime</h3>
+                    <div class="pcm-badge-group">
+                        <button class="ver-mais" id="det-disp">ver mais</button>
+                    </div>
                 </div>
                 <div class="donut-container">
                     <div style="position: relative;">
                         <span style="position: absolute; top: -2vh; left: 0; font-size: 0.6vw; font-weight: 700; color: #64748b;" id="downtime-text-pct">0% (0.00%)</span>
-                        <div class="donut-ring" id="donut-ring-el">
-                            <div class="donut-inner"></div>
-                        </div>
+                        <div class="donut-ring" id="donut-ring-el"><div class="donut-inner"></div></div>
                         <span style="position: absolute; bottom: -1.5vh; right: -1vw; font-size: 0.6vw; font-weight: 700; color: #64748b;" id="disp-text-pct">100% (100.00%)</span>
                     </div>
-                    
                     <div class="legend-box">
                         <div style="display: flex; align-items: center; gap: 0.5vw;"><span style="width:0.6vw; height:0.6vw; background:#8aa588; border-radius:50%;"></span> Disponibilidade</div>
                         <div style="display: flex; align-items: center; gap: 0.5vw;"><span style="width:0.6vw; height:0.6vw; background:#cbd5e1; border-radius:50%;"></span> Downtime</div>
                     </div>
                 </div>
             </div>
+
             <div class="pcm-card">
                 <div class="pcm-card-header">
-                    <h3>MTTA por Operador</h3>
-                    <span class="pcm-badge active-badge-gray">EQUIPE</span>
+                    <h3>MTTA por Operador (piores)</h3>
+                    <div class="pcm-badge-group">
+                        <button class="ver-mais" id="det-op">ver mais</button>
+                        <span class="pcm-badge active-badge-gray">EQUIPE</span>
+                    </div>
                 </div>
-                <div class="bars-container" id="mtta-operador-container">
-                </div>
+                <div class="bars-container" id="mtta-operador-container"></div>
             </div>
+
             <div class="pcm-card">
                 <div class="pcm-card-header">
-                    <h3>MTBF por Equipamento</h3>
+                    <h3>MTBF por Equipamento (piores)</h3>
+                    <div class="pcm-badge-group">
+                        <button class="ver-mais" id="det-mtbf-eq">ver mais</button>
+                    </div>
                 </div>
-                <div class="bars-container" id="mtbf-equip-container">
-                </div>
+                <div class="bars-container" id="mtbf-equip-container"></div>
             </div>
+
             <div class="pcm-card">
                 <div class="pcm-card-header">
-                    <h3>MTTR por Equipamento</h3>
+                    <h3>MTTR por Equipamento (piores)</h3>
+                    <div class="pcm-badge-group">
+                        <button class="ver-mais" id="det-mttr-eq">ver mais</button>
+                    </div>
                 </div>
-                <div class="bars-container" id="mttr-equip-container">
-                </div>
+                <div class="bars-container" id="mttr-equip-container"></div>
             </div>
         </main>
+    </div>
+
+    <!-- Modal de detalhes -->
+    <div class="modal-overlay" id="modal-det">
+        <div class="modal-box">
+            <div class="modal-head">
+                <h2 id="modal-titulo">Detalhes</h2>
+                <button id="modal-fechar" aria-label="Fechar">&times;</button>
+            </div>
+            <div class="modal-formula" id="modal-formula"></div>
+            <div class="modal-table-wrap">
+                <table>
+                    <thead id="modal-thead"></thead>
+                    <tbody id="modal-tbody"></tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
     <script type="module">
@@ -756,22 +420,51 @@
         const db = getFirestore(app);
 
         const MTBF_META = 200;
-
-        let ordensServico = [];
+        const MS_POR_HORA = 3600000;
+        const LIMITE_MESES_ATRAS = 60;   
+        const MESES = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+        const MESES_LONGO = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
         const ITEMS_PER_PAGE = 6;
-        const TIME_PER_PAGE = 15000; 
+        const TIME_PER_PAGE = 15000;
+
+        let registrosBrutos = [];
+        let todasOS = [];
+        let ordensServico = [];
+        let ordensAno = [];
         let currentPage = 0;
         let totalPages = 0;
+
+        let detalhes = {};
+        let seqDetalhe = 0;
+
+        const agoraInicial = new Date();
+        let mesSel = { ano: agoraInicial.getFullYear(), mes: agoraInicial.getMonth() };
+
+        const fmt = n => Number(n).toFixed(2);
+        const fmtData = d => d ? d.toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : '—';
+        const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        const idxMes = (ano, mes) => ano * 12 + mes;
+
+        function registrarDetalhe(obj) {
+            const id = 'd' + (++seqDetalhe);
+            detalhes[id] = obj;
+            return id;
+        }
+
+        function definirDetalhe(elId, obj) {
+            const el = document.getElementById(elId);
+            if (!el) return;
+            el.dataset.det = obj ? registrarDetalhe(obj) : '';
+        }
 
         window.toggleSidebar = function() {
             document.getElementById('sidebar').classList.toggle('active');
             document.getElementById('sidebar-overlay').classList.toggle('active');
-        }
+        };
 
         window.switchView = function(viewName) {
             document.querySelectorAll('.view-container').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('active'));
-
             const progressBarContainer = document.querySelector('.progress-bar-container');
 
             if (viewName === 'usinagem') {
@@ -785,250 +478,491 @@
                 if (progressBarContainer) progressBarContainer.style.display = 'none';
             }
             toggleSidebar();
+        };
+
+        window.mudarMes = function(delta) {
+            const agora = new Date();
+            const idxAtual = idxMes(agora.getFullYear(), agora.getMonth());
+            const idxMin = idxAtual - LIMITE_MESES_ATRAS;
+
+            const idxNovo = idxMes(mesSel.ano, mesSel.mes) + delta;
+            if (idxNovo > idxAtual || idxNovo < idxMin) return;
+
+            mesSel = { ano: Math.floor(idxNovo / 12), mes: idxNovo % 12 };
+            currentPage = 0;
+            atualizarTudo();
+        };
+
+        function atualizarNavegacaoMes(agora) {
+            const idxAtual = idxMes(agora.getFullYear(), agora.getMonth());
+            const idxSel = idxMes(mesSel.ano, mesSel.mes);
+            const idxMin = idxAtual - LIMITE_MESES_ATRAS;
+            const ehAtual = idxSel === idxAtual;
+            const texto = `${MESES_LONGO[mesSel.mes]} ${mesSel.ano}`;
+
+            document.querySelectorAll('.mes-nav').forEach(nav => {
+                nav.querySelector('[data-role="label"]').textContent = texto;
+                nav.querySelector('[data-role="tag"]').style.display = ehAtual ? 'inline-block' : 'none';
+                nav.querySelector('[data-role="prev"]').disabled = idxSel <= idxMin;
+                nav.querySelector('[data-role="next"]').disabled = idxSel >= idxAtual;
+            });
+
+            document.getElementById('periodo-usinagem').textContent = `Setor de Usinagem • ${texto}`;
+        }
+
+        function processarDocumento(id, dados, agoraMs) {
+            const statusAtual = dados.status ? dados.status.trim() : "";
+            if (statusAtual === "Aguardando Aprovação" || statusAtual === "Reprovada" || statusAtual === "Rejeitada") return null;
+
+            let statusTipo = "pendente";
+            let cardClass = "bg-red";
+            if (statusAtual === "Usinando") {
+                statusTipo = "processo";
+                cardClass = "bg-yellow";
+            } else if (statusAtual === "Aguardando Coleta" || statusAtual === "Finalizado" || statusAtual === "Entregue") {
+                statusTipo = "concluida";
+                cardClass = "bg-green";
+            }
+
+            const osId = dados.id_os || id;
+            const osTitulo = String(osId).startsWith("OS") ? osId : `OS ${osId}`;
+            const criadoEm = dados.data_criacao ? dados.data_criacao.toDate() : null;
+
+            let tempoAtend = Number(dados.tempo_atendimento);
+            if (isNaN(tempoAtend) || tempoAtend === 0) {
+                if (criadoEm && Array.isArray(dados.historico_execucao)) {
+                    const logIni = dados.historico_execucao.find(h => h.acao === "Inicio");
+                    if (logIni && logIni.timestamp) {
+                        const iniMs = logIni.timestamp.toDate().getTime();
+                        tempoAtend = Number(((iniMs - criadoEm.getTime()) / MS_POR_HORA).toFixed(2));
+                    }
+                }
+            }
+            if (isNaN(tempoAtend) || tempoAtend < 0) tempoAtend = 0;
+
+            let tempoRep = Number(dados.tempo_reparo);
+            if (isNaN(tempoRep) || tempoRep === 0) {
+                if (Array.isArray(dados.historico_execucao)) {
+                    let totalMs = 0;
+                    let start = null;
+                    for (const log of dados.historico_execucao) {
+                        const t = log.timestamp ? log.timestamp.toDate().getTime() : 0;
+                        if (log.acao === "Inicio") {
+                            start = t;
+                        } else if (["Pausa", "Finalizacao", "Troca de Turno"].includes(log.acao) && start !== null) {
+                            totalMs += (t - start);
+                            start = null;
+                        }
+                    }
+                    if (start !== null && statusAtual === "Usinando") {
+                        totalMs += (agoraMs - start);
+                    }
+                    tempoRep = Number((totalMs / MS_POR_HORA).toFixed(2));
+                }
+            }
+            if (isNaN(tempoRep) || tempoRep < 0) tempoRep = 0;
+
+            return {
+                id: osId,
+                statusTipo,
+                class: cardClass,
+                equipamento: dados.equipamento || "Oficina Geral",
+                conjunto: dados.conjunto ? `${dados.conjunto}` : "Manutenção",
+                maquina: `${osTitulo} (${statusAtual})`,
+                desc: dados.descricao || "Sem descrição informada.",
+                resp: dados.nome_operador ? dados.nome_operador : "Não Atribuído",
+                status: statusAtual,
+                criadoEm,
+                tempoAtendimento: tempoAtend,
+                tempoReparo: tempoRep,
+                prazo: Number(dados.prazo_sla) || Number(dados.prazo) || 24
+            };
+        }
+
+        function atualizarTudo() {
+            const agora = new Date();
+            const agoraMs = agora.getTime();
+
+            detalhes = {};
+            seqDetalhe = 0;
+
+            todasOS = [];
+            registrosBrutos.forEach(r => {
+                const os = processarDocumento(r.id, r.dados, agoraMs);
+                if (os) todasOS.push(os);
+            });
+
+            ordensAno = todasOS.filter(os => os.criadoEm && os.criadoEm.getFullYear() === mesSel.ano);
+            ordensServico = ordensAno.filter(os => os.criadoEm.getMonth() === mesSel.mes);
+
+            atualizarNavegacaoMes(agora);
+
+            const horasMes = new Date(mesSel.ano, mesSel.mes + 1, 0).getDate() * 24;
+
+            totalPages = Math.ceil(ordensServico.length / ITEMS_PER_PAGE) || 1;
+            if (currentPage >= totalPages) currentPage = 0;
+
+            atualizarEstatisticas();
+            calcularEstatisticasPCM(horasMes);
+            renderizarGraficoMTTA();
+            criarBolinhas();
+            renderizarPagina();
         }
 
         function escutarBancoDeDados() {
             const osRef = collection(db, "ordens_servico");
-
             onSnapshot(osRef, (snapshot) => {
-                const novasOrdens = [];
-                
-                snapshot.forEach((doc) => {
-                    const dados = doc.data();
-                    const statusAtual = dados.status ? dados.status.trim() : "";
-                    
-                    if (statusAtual !== "Aguardando Aprovação" && statusAtual !== "Reprovada" && statusAtual !== "Rejeitada") {
-                        let cardClass = "bg-red";
-                        let statusTipo = "pendente";
-
-                        if (statusAtual === "Usinando") {
-                            cardClass = "bg-yellow";
-                            statusTipo = "processo";
-                        } else if (statusAtual === "Aguardando Coleta" || statusAtual === "Finalizado" || statusAtual === "Entregue") {
-                            cardClass = "bg-green";
-                            statusTipo = "concluida";
-                        }
-
-                        const osId = dados.id_os || doc.id;
-                        const osTitulo = String(osId).startsWith("OS") ? osId : `OS ${osId}`;
-
-                        let tempoAtend = Number(dados.tempo_atendimento);
-                        let tempoRep = Number(dados.tempo_reparo);
-
-                        if (isNaN(tempoAtend) || tempoAtend === 0) {
-                            if (dados.data_criacao && Array.isArray(dados.historico_execucao)) {
-                                const logIni = dados.historico_execucao.find(h => h.acao === "Inicio");
-                                if (logIni && logIni.timestamp) {
-                                    const criacaoMs = dados.data_criacao.toDate().getTime();
-                                    const iniMs = logIni.timestamp.toDate().getTime();
-                                    tempoAtend = Number(((iniMs - criacaoMs) / 3600000).toFixed(2));
-                                }
-                            }
-                        }
-                        if (isNaN(tempoAtend) || tempoAtend < 0) tempoAtend = 0;
-
-                        if (isNaN(tempoRep) || tempoRep === 0) {
-                            if (Array.isArray(dados.historico_execucao)) {
-                                let totalMs = 0;
-                                let start = null;
-                                for (let log of dados.historico_execucao) {
-                                    const t = log.timestamp ? log.timestamp.toDate().getTime() : 0;
-                                    if (log.acao === "Inicio") {
-                                        start = t;
-                                    } else if (["Pausa", "Finalizacao", "Troca de Turno"].includes(log.acao) && start) {
-                                        totalMs += (t - start);
-                                        start = null;
-                                    }
-                                }
-                                tempoRep = Number((totalMs / 3700000).toFixed(2));
-                            }
-                        }
-                        if (isNaN(tempoRep) || tempoRep < 0) tempoRep = 0;
-
-                        novasOrdens.push({
-                            id: osId,
-                            statusTipo: statusTipo,
-                            class: cardClass,
-                            equipamento: dados.equipamento || "Oficina Geral",
-                            conjunto: dados.conjunto ? `${dados.conjunto}` : "Manutenção",
-                            maquina: `${osTitulo} (${statusAtual})`,
-                            desc: dados.descricao || "Sem descrição informada.",
-                            resp: dados.nome_operador ? dados.nome_operador : "Não Atribuído",
-                            status: statusAtual,
-                            tempoAtendimento: tempoAtend,
-                            tempoReparo: tempoRep,
-                            prazo: Number(dados.prazo_sla) || Number(dados.prazo) || 24
-                        });
-                    }
-                });
-
-                ordensServico = novasOrdens;
-                totalPages = Math.ceil(ordensServico.length / ITEMS_PER_PAGE) || 1; 
-                
-                if (currentPage >= totalPages) currentPage = 0;
-
-                atualizarEstatisticas();
-                calcularEstatisticasPCM();
-                criarBolinhas();
-                renderizarPagina();
+                registrosBrutos = snapshot.docs.map(d => ({ id: d.id, dados: d.data() }));
+                atualizarTudo();
             }, (error) => {
                 console.error("Erro ao escutar o Firestore: ", error);
             });
         }
 
         function atualizarEstatisticas() {
-            const pendentes = ordensServico.filter(os => os.statusTipo === 'pendente').length;
-            const emProcesso = ordensServico.filter(os => os.statusTipo === 'processo').length;
-            const concluidas = ordensServico.filter(os => os.statusTipo === 'concluida').length;
-
             document.getElementById('count-total').textContent = ordensServico.length;
-            document.getElementById('count-pendente').textContent = pendentes;
-            document.getElementById('count-processo').textContent = emProcesso;
-            document.getElementById('count-concluida').textContent = concluidas;
+            document.getElementById('count-pendente').textContent = ordensServico.filter(os => os.statusTipo === 'pendente').length;
+            document.getElementById('count-processo').textContent = ordensServico.filter(os => os.statusTipo === 'processo').length;
+            document.getElementById('count-concluida').textContent = ordensServico.filter(os => os.statusTipo === 'concluida').length;
         }
 
-        function calcularEstatisticasPCM() {
+        function calcularEstatisticasPCM(horasMes) {
             const totalOS = ordensServico.length;
             document.getElementById('pcm-total-os').textContent = totalOS;
-
             const elMtbf = document.getElementById('pcm-mtbf');
+
+            definirDetalhe('det-qtd', {
+                titulo: 'Ordens de serviço do mês',
+                formula: `${totalOS} OS criadas em ${MESES_LONGO[mesSel.mes]} de ${mesSel.ano} (exclui aguardando aprovação, reprovadas e rejeitadas)`,
+                colunas: ['OS', 'Equipamento', 'Status', 'Criada em'],
+                linhas: ordensServico.map(os => [os.id, os.equipamento, os.status, fmtData(os.criadoEm)])
+            });
 
             if (totalOS === 0) {
                 elMtbf.textContent = "0.00";
                 elMtbf.style.color = '#88a595';
                 document.getElementById('pcm-mttr').textContent = "0.00";
                 document.getElementById('pcm-mtta').textContent = "0.00";
-                document.getElementById('pcm-sla').textContent = "0.00%";
+                document.getElementById('pcm-sla').textContent = "—";
                 document.getElementById('donut-ring-el').style.background = `conic-gradient(#cbd5e1 0% 0%, #8aa588 0% 100%)`;
                 document.getElementById('downtime-text-pct').textContent = `0% (0.00%)`;
                 document.getElementById('disp-text-pct').textContent = `100% (100.00%)`;
                 document.getElementById('mtta-operador-container').innerHTML = '';
                 document.getElementById('mtbf-equip-container').innerHTML = '';
                 document.getElementById('mttr-equip-container').innerHTML = '';
+                ['det-mtbf', 'det-mttr', 'det-mtta', 'det-sla', 'det-disp', 'det-op', 'det-mtbf-eq', 'det-mttr-eq']
+                    .forEach(id => document.getElementById(id).dataset.det = '');
                 return;
             }
 
-            const osComAtendimento = ordensServico.filter(os => os.tempoAtendimento > 0);
-            const somaMTTA = osComAtendimento.reduce((acc, curr) => acc + curr.tempoAtendimento, 0);
-            const mtta = osComAtendimento.length > 0 ? somaMTTA / osComAtendimento.length : 0;
+            const comAtendimento = ordensServico.filter(os => os.tempoAtendimento > 0);
+            const somaAtend = comAtendimento.reduce((acc, os) => acc + os.tempoAtendimento, 0);
+            const mtta = comAtendimento.length > 0 ? somaAtend / comAtendimento.length : 0;
 
-            const osConcluidas = ordensServico.filter(os => os.statusTipo === 'concluida');
-            const totalReparos = osConcluidas.length > 0 ? osConcluidas.length : ordensServico.filter(os => os.tempoReparo > 0).length;
-            const somaMTTR = ordensServico.reduce((acc, curr) => acc + curr.tempoReparo, 0);
-            const mttr = totalReparos > 0 ? somaMTTR / totalReparos : 0;
+            const comReparo = ordensServico.filter(os => os.tempoReparo > 0);
+            const somaReparo = comReparo.reduce((acc, os) => acc + os.tempoReparo, 0);
+            const mttr = comReparo.length > 0 ? somaReparo / comReparo.length : 0;
 
-            let equipMap = {};
+            const equipMap = {};
             ordensServico.forEach(os => {
-                let eq = os.equipamento || "Oficina Geral";
-                if (!equipMap[eq]) equipMap[eq] = { totalReparo: 0, count: 0 };
+                const eq = os.equipamento || "Oficina Geral";
+                if (!equipMap[eq]) equipMap[eq] = { totalReparo: 0, countAll: 0, countReparo: 0 };
                 equipMap[eq].totalReparo += os.tempoReparo;
-                equipMap[eq].count += 1;
+                equipMap[eq].countAll += 1;
+                if (os.tempoReparo > 0) equipMap[eq].countReparo += 1;
             });
 
-            const equipamentos = Object.keys(equipMap);
-            const qtdEquipamentos = Math.max(equipamentos.length, 1);
-            const tempoDisponivelTotal = qtdEquipamentos * 720;
-            const tempoOperacao = Math.max(tempoDisponivelTotal - somaMTTR, 0);
-            const mtbf = totalOS > 0 ? tempoOperacao / totalOS : tempoDisponivelTotal;
+            const qtdEquipamentos = Math.max(Object.keys(equipMap).length, 1);
+            const tempoDisponivelTotal = qtdEquipamentos * horasMes;
+            const tempoOperacao = Math.max(tempoDisponivelTotal - somaReparo, 0);
+            const mtbf = tempoOperacao / totalOS;
 
-            const dentroPrazoSLA = osConcluidas.filter(os => (os.tempoAtendimento + os.tempoReparo) <= os.prazo).length;
-            const sla = osConcluidas.length > 0 ? (dentroPrazoSLA / osConcluidas.length) * 100 : 0;
+            const concluidas = ordensServico.filter(os => os.statusTipo === 'concluida');
+            const dentroPrazo = concluidas.filter(os => (os.tempoAtendimento + os.tempoReparo) <= os.prazo).length;
+            const slaTexto = concluidas.length > 0
+                ? ((dentroPrazo / concluidas.length) * 100).toFixed(2) + '%'
+                : '—';
 
             elMtbf.textContent = mtbf.toFixed(2);
-            if (mtbf < MTBF_META) {
-                elMtbf.style.color = '#e63946';
-            } else {
-                elMtbf.style.color = '#88a595';
-            }
-
+            elMtbf.style.color = mtbf < MTBF_META ? '#e63946' : '#88a595';
             document.getElementById('pcm-mttr').textContent = mttr.toFixed(2);
             document.getElementById('pcm-mtta').textContent = mtta.toFixed(2);
-            document.getElementById('pcm-sla').textContent = sla.toFixed(2) + '%';
+            document.getElementById('pcm-sla').textContent = slaTexto;
+
+            definirDetalhe('det-mtbf', {
+                titulo: 'MTBF — tempo médio entre falhas',
+                formula: `(${qtdEquipamentos} equipamento(s) × ${horasMes} h − ${fmt(somaReparo)} h de reparo) ÷ ${totalOS} OS = ${fmt(mtbf)} h`,
+                colunas: ['OS', 'Equipamento', 'Reparo (h)', 'Status'],
+                linhas: ordensServico.map(os => [os.id, os.equipamento, fmt(os.tempoReparo), os.status])
+            });
+            definirDetalhe('det-mttr', {
+                titulo: 'MTTR — tempo médio de reparo',
+                formula: `${fmt(somaReparo)} h de reparo ÷ ${comReparo.length} OS com reparo = ${fmt(mttr)} h`,
+                colunas: ['OS', 'Equipamento', 'Reparo (h)', 'Status'],
+                linhas: comReparo.map(os => [os.id, os.equipamento, fmt(os.tempoReparo), os.status])
+            });
+            definirDetalhe('det-mtta', {
+                titulo: 'MTTA — tempo médio de atendimento',
+                formula: `${fmt(somaAtend)} h de atendimento ÷ ${comAtendimento.length} OS com atendimento = ${fmt(mtta)} h`,
+                colunas: ['OS', 'Operador', 'Criada em', 'Atendimento (h)'],
+                linhas: comAtendimento.map(os => [os.id, os.resp, fmtData(os.criadoEm), fmt(os.tempoAtendimento)])
+            });
+            definirDetalhe('det-sla', concluidas.length === 0 ? null : {
+                titulo: 'SLA — OS concluídas dentro do prazo',
+                formula: `${dentroPrazo} OS dentro do prazo ÷ ${concluidas.length} OS concluídas = ${slaTexto}. Cada OS conta atendimento + reparo contra o prazo (h)`,
+                colunas: ['OS', 'Atendimento + reparo (h)', 'Prazo (h)', 'Situação'],
+                linhas: concluidas.map(os => {
+                    const total = os.tempoAtendimento + os.tempoReparo;
+                    return [os.id, fmt(total), os.prazo, total <= os.prazo ? 'Dentro do prazo' : 'Fora do prazo'];
+                })
+            });
 
             let dispPct = tempoDisponivelTotal > 0 ? (tempoOperacao / tempoDisponivelTotal) * 100 : 100;
-            if (dispPct > 100) dispPct = 100;
-            if (dispPct < 0) dispPct = 0;
-            let downtimePct = 100 - dispPct;
+            dispPct = Math.min(Math.max(dispPct, 0), 100);
+            const downtimePct = 100 - dispPct;
 
-            document.getElementById('donut-ring-el').style.background = `conic-gradient(#cbd5e1 0% ${downtimePct.toFixed(2)}%, #8aa588 ${downtimePct.toFixed(2)}% 100%)`;
+            document.getElementById('donut-ring-el').style.background =
+                `conic-gradient(#cbd5e1 0% ${downtimePct.toFixed(2)}%, #8aa588 ${downtimePct.toFixed(2)}% 100%)`;
             document.getElementById('downtime-text-pct').textContent = `${Math.round(downtimePct)}% (${downtimePct.toFixed(2)}%)`;
             document.getElementById('disp-text-pct').textContent = `${Math.round(dispPct)}% (${dispPct.toFixed(2)}%)`;
 
-            let operadoresMap = {};
-            ordensServico.forEach(os => {
-                if (!operadoresMap[os.resp]) operadoresMap[os.resp] = { somaTempo: 0, count: 0 };
-                operadoresMap[os.resp].somaTempo += os.tempoAtendimento;
-                operadoresMap[os.resp].count += 1;
+            const eqList = Object.keys(equipMap).map(eq => {
+                const e = equipMap[eq];
+                return {
+                    nome: eq,
+                    countAll: e.countAll,
+                    countReparo: e.countReparo,
+                    totalReparo: e.totalReparo,
+                    mtbf: Math.max(horasMes - e.totalReparo, 0) / e.countAll,
+                    mttr: e.countReparo > 0 ? e.totalReparo / e.countReparo : 0
+                };
             });
 
-            let listaOp = Object.keys(operadoresMap);
-            let maxMtta = 0.01;
-            listaOp.forEach(op => {
-                let m = operadoresMap[op].somaTempo / operadoresMap[op].count;
-                if (m > maxMtta) maxMtta = m;
+            definirDetalhe('det-disp', {
+                titulo: 'Disponibilidade e downtime',
+                formula: `(${fmt(tempoDisponivelTotal)} h disponíveis − ${fmt(somaReparo)} h de reparo) ÷ ${fmt(tempoDisponivelTotal)} h = ${dispPct.toFixed(2)}% de disponibilidade. Base: ${qtdEquipamentos} equipamento(s) × ${horasMes} h`,
+                colunas: ['Equipamento', 'OS', 'Reparo (h)', 'Horas disponíveis'],
+                linhas: eqList.map(e => [e.nome, e.countAll, fmt(e.totalReparo), horasMes])
             });
 
-            let htmlOperador = '';
-            listaOp.slice(0, 5).forEach(op => {
-                let m = operadoresMap[op].somaTempo / operadoresMap[op].count;
-                let width = Math.min((m / maxMtta) * 100, 100);
-                htmlOperador += `
-                    <div class="bar-row">
-                        <div class="bar-info-text">${op}</div>
-                        <div class="bar-track"><div class="bar-fill green" style="width: ${width}%;"></div></div>
-                        <div class="bar-value">${m.toFixed(2)}</div>
-                    </div>
-                `;
+            const opMap = {};
+            comAtendimento.forEach(os => {
+                if (!opMap[os.resp]) opMap[os.resp] = { soma: 0, count: 0 };
+                opMap[os.resp].soma += os.tempoAtendimento;
+                opMap[os.resp].count += 1;
             });
-            document.getElementById('mtta-operador-container').innerHTML = htmlOperador;
+            const listaOp = Object.keys(opMap)
+                .map(op => ({ nome: op, media: opMap[op].soma / opMap[op].count, soma: opMap[op].soma, count: opMap[op].count }))
+                .sort((a, b) => b.media - a.media)
+                .slice(0, 5);
+            const maxMtta = Math.max(...listaOp.map(o => o.media), 0.01);
 
-            let htmlMtbf = '';
-            let htmlMttr = '';
-            let sortedEquips = Object.keys(equipMap).sort();
+            document.getElementById('mtta-operador-container').innerHTML = listaOp.map(o => {
+                const id = registrarDetalhe({
+                    titulo: `Operador: ${o.nome}`,
+                    formula: `${fmt(o.soma)} h de atendimento ÷ ${o.count} OS = ${fmt(o.media)} h (MTTA do operador)`,
+                    colunas: ['OS', 'Equipamento', 'Criada em', 'Atendimento (h)'],
+                    linhas: comAtendimento.filter(os => os.resp === o.nome)
+                        .map(os => [os.id, os.equipamento, fmtData(os.criadoEm), fmt(os.tempoAtendimento)])
+                });
+                return `
+                <div class="bar-row clicavel" data-det="${id}">
+                    <div class="bar-info-text">${esc(o.nome)}</div>
+                    <div class="bar-track"><div class="bar-fill green" style="width: ${(o.media / maxMtta) * 100}%;"></div></div>
+                    <div class="bar-value">${fmt(o.media)}</div>
+                </div>`;
+            }).join('');
 
-            let maxEqMtbf = 1;
-            let maxEqMttr = 1;
-            sortedEquips.forEach(eq => {
-                let count = equipMap[eq].count;
-                let rep = equipMap[eq].totalReparo;
-                let b = count > 0 ? Math.max(720 - rep, 0) / count : 720;
-                let r = count > 0 ? rep / count : 0;
-                if (b > maxEqMtbf) maxEqMtbf = b;
-                if (r > maxEqMttr) maxEqMttr = r;
+            const porMtbf = [...eqList].sort((a, b) => a.mtbf - b.mtbf).slice(0, 5);
+            const maxMtbf = Math.max(...porMtbf.map(e => e.mtbf), 1);
+            document.getElementById('mtbf-equip-container').innerHTML = porMtbf.map(e => {
+                const cor = e.mtbf < MTBF_META ? '#e63946' : '#a488a5';
+                const corTexto = e.mtbf < MTBF_META ? '#e63946' : '#334155';
+                const id = registrarDetalhe({
+                    titulo: `MTBF do equipamento: ${e.nome}`,
+                    formula: `(${horasMes} h − ${fmt(e.totalReparo)} h de reparo) ÷ ${e.countAll} OS = ${fmt(e.mtbf)} h`,
+                    colunas: ['OS', 'Status', 'Reparo (h)'],
+                    linhas: ordensServico.filter(os => os.equipamento === e.nome)
+                        .map(os => [os.id, os.status, fmt(os.tempoReparo)])
+                });
+                return `
+                <div class="bar-row clicavel" data-det="${id}">
+                    <div class="bar-info-text">${esc(e.nome)}</div>
+                    <div class="bar-track"><div class="bar-fill" style="width: ${(e.mtbf / maxMtbf) * 100}%; background-color: ${cor};"></div></div>
+                    <div class="bar-value" style="color: ${corTexto}; font-weight: 900;">${fmt(e.mtbf)}</div>
+                </div>`;
+            }).join('');
+
+            const porMttr = [...eqList].sort((a, b) => b.mttr - a.mttr).slice(0, 5);
+            const maxMttr = Math.max(...porMttr.map(e => e.mttr), 0.01);
+            document.getElementById('mttr-equip-container').innerHTML = porMttr.map(e => {
+                const id = registrarDetalhe({
+                    titulo: `MTTR do equipamento: ${e.nome}`,
+                    formula: `${fmt(e.totalReparo)} h de reparo ÷ ${e.countReparo} OS com reparo = ${fmt(e.mttr)} h`,
+                    colunas: ['OS', 'Status', 'Reparo (h)'],
+                    linhas: ordensServico.filter(os => os.equipamento === e.nome && os.tempoReparo > 0)
+                        .map(os => [os.id, os.status, fmt(os.tempoReparo)])
+                });
+                return `
+                <div class="bar-row clicavel" data-det="${id}">
+                    <div class="bar-info-text">${esc(e.nome)}</div>
+                    <div class="bar-track"><div class="bar-fill blue" style="width: ${(e.mttr / maxMttr) * 100}%;"></div></div>
+                    <div class="bar-value">${fmt(e.mttr)}</div>
+                </div>`;
+            }).join('');
+
+            definirDetalhe('det-op', {
+                titulo: 'MTTA por operador',
+                formula: 'Para cada operador: soma do atendimento ÷ nº de OS com atendimento. Mostra os 5 com maior MTTA. Clique em uma linha para ver as OS.',
+                colunas: ['Operador', 'OS', 'Soma (h)', 'MTTA (h)'],
+                linhas: listaOp.map(o => [o.nome, o.count, fmt(o.soma), fmt(o.media)])
             });
-
-            sortedEquips.slice(0, 5).forEach(eq => {
-                let count = equipMap[eq].count;
-                let rep = equipMap[eq].totalReparo;
-                let eqMttr = count > 0 ? rep / count : 0;
-                let eqMtbf = count > 0 ? Math.max(720 - rep, 0) / count : 720;
-
-                let widthMtbf = Math.min((eqMtbf / maxEqMtbf) * 100, 100);
-                let widthMttr = Math.min((eqMttr / maxEqMttr) * 100, 100);
-
-                let corBarraMtbf = eqMtbf < MTBF_META ? '#e63946' : '#a488a5';
-                let corTextoMtbf = eqMtbf < MTBF_META ? '#e63946' : '#334155';
-
-                htmlMtbf += `
-                    <div class="bar-row">
-                        <div class="bar-info-text">${eq}</div>
-                        <div class="bar-track"><div class="bar-fill" style="width: ${widthMtbf}%; background-color: ${corBarraMtbf};"></div></div>
-                        <div class="bar-value" style="color: ${corTextoMtbf}; font-weight: 900;">${eqMtbf.toFixed(2)}</div>
-                    </div>
-                `;
-
-                htmlMttr += `
-                    <div class="bar-row">
-                        <div class="bar-info-text">${eq}</div>
-                        <div class="bar-track"><div class="bar-fill blue" style="width: ${widthMttr}%;"></div></div>
-                        <div class="bar-value">${eqMttr.toFixed(2)}</div>
-                    </div>
-                `;
+            definirDetalhe('det-mtbf-eq', {
+                titulo: 'MTBF por equipamento',
+                formula: '(horas do mês − soma dos reparos do equipamento) ÷ nº de OS do equipamento. Mostra os 5 piores. Clique em uma linha para ver as OS.',
+                colunas: ['Equipamento', 'OS', 'Reparo (h)', 'MTBF (h)'],
+                linhas: porMtbf.map(e => [e.nome, e.countAll, fmt(e.totalReparo), fmt(e.mtbf)])
             });
-
-            document.getElementById('mtbf-equip-container').innerHTML = htmlMtbf;
-            document.getElementById('mttr-equip-container').innerHTML = htmlMttr;
+            definirDetalhe('det-mttr-eq', {
+                titulo: 'MTTR por equipamento',
+                formula: 'Soma dos reparos do equipamento ÷ nº de OS com reparo. Mostra os 5 piores. Clique em uma linha para ver as OS.',
+                colunas: ['Equipamento', 'OS com reparo', 'Reparo (h)', 'MTTR (h)'],
+                linhas: porMttr.map(e => [e.nome, e.countReparo, fmt(e.totalReparo), fmt(e.mttr)])
+            });
         }
+
+        function renderizarGraficoMTTA() {
+            const container = document.getElementById('mtta-mes-container');
+            const ano = mesSel.ano;
+            document.getElementById('titulo-grafico').textContent = `MTTA por Mês — ${ano}`;
+
+            const somas = Array(12).fill(0);
+            const contagens = Array(12).fill(0);
+            ordensAno.forEach(os => {
+                if (os.tempoAtendimento > 0) {
+                    const m = os.criadoEm.getMonth();
+                    somas[m] += os.tempoAtendimento;
+                    contagens[m] += 1;
+                }
+            });
+            const medias = somas.map((s, i) => contagens[i] > 0 ? s / contagens[i] : null);
+            const valores = medias.filter(v => v !== null);
+
+            definirDetalhe('det-chart', valores.length === 0 ? null : {
+                titulo: `MTTA por mês — ${ano}`,
+                formula: 'Média mensal do atendimento: soma dos atendimentos ÷ nº de OS com atendimento, agrupadas pelo mês de criação. Clique em um mês no gráfico para ver as OS.',
+                colunas: ['Mês', 'OS com atendimento', 'Soma (h)', 'MTTA (h)'],
+                linhas: medias.map((m, i) => [MESES_LONGO[i], contagens[i], fmt(somas[i]), m === null ? '—' : fmt(m)])
+            });
+
+            if (valores.length === 0) {
+                container.innerHTML = `<div class="chart-empty">Sem OS com atendimento registrado em ${ano}</div>`;
+                return;
+            }
+
+            const W = 1000, H = 320;
+            const pL = 60, pR = 24, pT = 28, pB = 40;
+            const plotW = W - pL - pR;
+            const plotH = H - pT - pB;
+            const topo = Math.max(...valores) * 1.15;
+            const larguraMes = plotW / 11;
+
+            const xDe = i => pL + larguraMes * i;
+            const yDe = v => pT + plotH * (1 - v / topo);
+            const yBase = pT + plotH;
+
+            let svg = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">`;
+
+            svg += `<rect x="${xDe(mesSel.mes) - larguraMes / 2}" y="${pT}" width="${larguraMes}" height="${plotH}" fill="#f0fdf4"/>`;
+
+            for (let k = 0; k <= 4; k++) {
+                const v = topo * k / 4;
+                const y = yDe(v);
+                svg += `<line x1="${pL}" y1="${y}" x2="${W - pR}" y2="${y}" stroke="#e2e8f0" stroke-width="1" ${k === 0 ? '' : 'stroke-dasharray="4 4"'}/>`;
+                svg += `<text x="${pL - 10}" y="${y + 5}" text-anchor="end" font-size="15" fill="#94a3b8" font-weight="700">${v.toFixed(1)}</text>`;
+            }
+            svg += `<text x="${pL - 10}" y="${pT - 10}" text-anchor="end" font-size="14" fill="#64748b" font-weight="800">horas</text>`;
+
+            let caminho = '';
+            medias.forEach((m, i) => {
+                if (m === null) return;
+                caminho += (caminho === '' || medias[i - 1] === null ? 'M' : 'L') + `${xDe(i)} ${yDe(m)} `;
+            });
+            if (caminho) {
+                svg += `<path d="${caminho.trim()}" fill="none" stroke="#10b981" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>`;
+            }
+
+            medias.forEach((m, i) => {
+                const x = xDe(i);
+                const selecionado = i === mesSel.mes;
+                const detId = registrarDetalhe({
+                    titulo: `MTTA de ${MESES_LONGO[i]} de ${ano}`,
+                    formula: m === null
+                        ? 'Nenhuma OS com atendimento registrado neste mês'
+                        : `${fmt(somas[i])} h de atendimento ÷ ${contagens[i]} OS = ${fmt(m)} h`,
+                    colunas: ['OS', 'Operador', 'Criada em', 'Atendimento (h)'],
+                    linhas: ordensAno.filter(os => os.criadoEm.getMonth() === i && os.tempoAtendimento > 0)
+                        .map(os => [os.id, os.resp, fmtData(os.criadoEm), fmt(os.tempoAtendimento)])
+                });
+
+                svg += `<g class="clicavel" data-det="${detId}">`;
+                svg += `<rect x="${x - larguraMes / 2}" y="${pT}" width="${larguraMes}" height="${plotH}" fill="transparent"/>`;
+                if (m === null) {
+                    svg += `<circle cx="${x}" cy="${yBase}" r="3.5" fill="#cbd5e1"/>`;
+                } else {
+                    const y = yDe(m);
+                    svg += `<circle cx="${x}" cy="${y}" r="${selecionado ? 9 : 6}" fill="#10b981" stroke="#ffffff" stroke-width="2.5"/>`;
+                    svg += `<text x="${x}" y="${y - 16}" text-anchor="middle" font-size="15" font-weight="800" fill="#047857">${fmt(m)}</text>`;
+                }
+                svg += `<text x="${x}" y="${H - 12}" text-anchor="middle" font-size="15" font-weight="${selecionado ? 900 : 700}" fill="${selecionado ? '#0f766e' : '#64748b'}">${MESES[i]}</text>`;
+                svg += `</g>`;
+            });
+
+            svg += `<line x1="${pL}" y1="${yBase}" x2="${W - pR}" y2="${yBase}" stroke="#94a3b8" stroke-width="1.5"/>`;
+            svg += `</svg>`;
+
+            container.innerHTML = svg;
+        }
+
+        function abrirDetalhe(d) {
+            document.getElementById('modal-titulo').textContent = d.titulo;
+            document.getElementById('modal-formula').textContent = d.formula;
+
+            document.getElementById('modal-thead').innerHTML =
+                `<tr>${d.colunas.map(c => `<th>${esc(c)}</th>`).join('')}</tr>`;
+
+            const corpo = d.linhas.length
+                ? d.linhas.map(l => `<tr>${l.map(c => `<td>${esc(c)}</td>`).join('')}</tr>`).join('')
+                : `<tr><td class="vazio" colspan="${d.colunas.length}">Nenhum registro usado neste cálculo</td></tr>`;
+            document.getElementById('modal-tbody').innerHTML = corpo;
+
+            document.getElementById('modal-det').classList.add('active');
+        }
+
+        function fecharModal() {
+            document.getElementById('modal-det').classList.remove('active');
+        }
+
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('#modal-fechar') || e.target.id === 'modal-det') {
+                fecharModal();
+                return;
+            }
+            const el = e.target.closest('[data-det]');
+            if (el) {
+                const d = el.dataset.det ? detalhes[el.dataset.det] : null;
+                abrirDetalhe(d || {
+                    titulo: 'Detalhes',
+                    formula: 'Não há dados para este indicador no mês selecionado.',
+                    colunas: ['Registro'],
+                    linhas: []
+                });
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') fecharModal();
+        });
 
         function gerarCartaoHTML(os) {
             const userIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>`;
@@ -1041,13 +975,9 @@
                     <div class="card-right">
                         <h3>${os.maquina}</h3>
                         <p class="desc">${os.desc}</p>
-                        <div class="assignee">
-                            ${userIcon}
-                            ${os.resp}
-                        </div>
+                        <div class="assignee">${userIcon} ${os.resp}</div>
                     </div>
-                </div>
-            `;
+                </div>`;
         }
 
         function renderizarPagina() {
@@ -1057,21 +987,22 @@
             setTimeout(() => {
                 const start = currentPage * ITEMS_PER_PAGE;
                 const pageItems = ordensServico.slice(start, start + ITEMS_PER_PAGE);
-                
-                grid.innerHTML = pageItems.map(gerarCartaoHTML).join('');
-                
+                grid.innerHTML = pageItems.length
+                    ? pageItems.map(gerarCartaoHTML).join('')
+                    : `<div class="chart-empty" style="grid-column: span 2;">Nenhuma OS neste mês</div>`;
+
                 document.querySelectorAll('.dot').forEach((dot, index) => {
                     dot.classList.toggle('active', index === currentPage);
                 });
 
                 grid.classList.remove('fade-out');
                 reiniciarAnimacaoBarra();
-            }, 500); 
+            }, 500);
         }
 
         function criarBolinhas() {
             const container = document.getElementById('pagination-dots');
-            container.innerHTML = ''; 
+            container.innerHTML = '';
             for (let i = 0; i < totalPages; i++) {
                 const dot = document.createElement('div');
                 dot.className = 'dot';
@@ -1082,50 +1013,35 @@
         function reiniciarAnimacaoBarra() {
             const bar = document.getElementById('progress-bar');
             bar.style.animation = 'none';
-            bar.offsetHeight; 
+            bar.offsetHeight;
             bar.style.animation = `fillProgress ${TIME_PER_PAGE / 1000}s linear infinite`;
         }
 
         function proximaPagina() {
             const usinagemAtiva = document.getElementById('view-usinagem').classList.contains('active');
             if (!usinagemAtiva) return;
-
             if (totalPages > 1) {
-                currentPage++;
-                if (currentPage >= totalPages) {
-                    currentPage = 0;
-                }
+                currentPage = (currentPage + 1) % totalPages;
                 renderizarPagina();
             }
         }
 
         function atualizarRelogio() {
             const agora = new Date();
-            const horas = String(agora.getHours()).padStart(2, '0');
-            const minutos = String(agora.getMinutes()).padStart(2, '0');
-            const segundos = String(agora.getSeconds()).padStart(2, '0');
-            
+            const pad = n => String(n).padStart(2, '0');
+            const relogioStr = `${pad(agora.getHours())}:${pad(agora.getMinutes())}:${pad(agora.getSeconds())}`;
             const diasSemana = ['Domingo', 'Segunda-Feira', 'Terça-Feira', 'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira', 'Sábado'];
-            const meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
-            
-            const diaStr = diasSemana[agora.getDay()];
-            const dia = agora.getDate();
-            const mesStr = meses[agora.getMonth()];
-            const ano = agora.getFullYear();
-
-            const relogioStr = `${horas}:${minutos}:${segundos}`;
-            const dataStr = `${diaStr}, ${dia} De ${mesStr} De ${ano}`;
+            const dataStr = `${diasSemana[agora.getDay()]}, ${agora.getDate()} De ${MESES_LONGO[agora.getMonth()]} De ${agora.getFullYear()}`;
 
             document.getElementById('relogio').textContent = relogioStr;
             document.getElementById('data-atual').textContent = dataStr;
-
             document.getElementById('relogio-pcm').textContent = relogioStr;
         }
 
-        escutarBancoDeDados(); 
+        escutarBancoDeDados();
         atualizarRelogio();
-
         setInterval(atualizarRelogio, 1000);
+        setInterval(atualizarTudo, 60000);
         setInterval(proximaPagina, TIME_PER_PAGE);
     </script>
 </body>
